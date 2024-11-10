@@ -1,26 +1,26 @@
 ﻿namespace UsageSample.ConsoleApp;
 
+using Trustsoft.HolidaysCalendar;
 using Trustsoft.HolidaysCalendar.Contracts;
 using Trustsoft.HolidaysCalendar.DataProviders;
-using Trustsoft.HolidaysCalendar;
 
 internal static class Program
 {
     private static readonly int CurrentYear = DateTime.Now.Year;
     private static readonly Random Rnd = new Random(Environment.TickCount);
 
-    static void Main(string[] args)
+    static void Main()
     {
         Console.WriteLine("HolidaysCalendar Sample Usage");
 
         IHolidaysCalendar calendar = new HolidaysCalendar();
         var dataProvider = new XmlCalendarDataProvider();
         calendar.Initialize(dataProvider);
-
-        foreach (var date in Program.GetTestDays())
+        var number = 0;
+        foreach (var date in GetTestDays())
         {
             var result = calendar.IsHoliday(date);
-            Console.WriteLine($"Date {date:dd.MM.yyyy} is holiday = {result}");
+            Console.WriteLine($"#{++number:00}: {date:dd.MM.yyyy} is holiday = {result}");
         }
 
         Console.ReadLine();
@@ -30,13 +30,11 @@ internal static class Program
     {
         var list = new List<DateOnly>();
 
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < 21; i++)
         {
             list.Add(GetRandomDateOnly());
         }
-        list.Add(new DateOnly(2022, 1, 1));
-        list.Add(new DateOnly(2023, 1, 3));
-        list.Add(new DateOnly(2024, 1, 2));
+        list.Add(new DateOnly(CurrentYear, 1, 2));
 
         foreach (var dateOnly in list.OrderBy(d => d))
         {
@@ -46,9 +44,8 @@ internal static class Program
 
     private static DateOnly GetRandomDateOnly()
     {
-        var year = Program.Rnd.Next(CurrentYear - 2, CurrentYear);
-        var month = Program.Rnd.Next(1, 12);
-        var day = Program.Rnd.Next(1, DateTime.DaysInMonth(year, month));
-        return new DateOnly(year, month, day);
+        var month = Rnd.Next(1, 12);
+        var day = Rnd.Next(1, DateTime.DaysInMonth(CurrentYear, month));
+        return new DateOnly(CurrentYear, month, day);
     }
 }
