@@ -54,8 +54,10 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
                     case 1:
                         holidays.Add(date);
                         break;
+                    // if working day, pre-holiday
+                    //case 2:
+                    //    break;
                     // if working weekend
-                    case 2:
                     case 3:
                         workingWeekends.Add(date);
                         break;
