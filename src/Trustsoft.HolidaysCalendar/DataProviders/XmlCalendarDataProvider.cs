@@ -17,10 +17,15 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
 
     public IHolidaysData GetHolidays(int year)
     {
+        string GetFirstAttributeValue(XElement element, string attributeName)
+        {
+            return element.Attributes(attributeName).FirstOrDefault()?.Value ?? string.Empty;
+        }
+
         bool ParseDateAndType(XElement element, out DateOnly date, out int dayType)
         {
-            var day = element.Attributes("d").FirstOrDefault()?.Value ?? string.Empty;
-            var type = element.Attributes("t").FirstOrDefault()?.Value ?? string.Empty;
+            var day = GetFirstAttributeValue(element, "d");
+            var type = GetFirstAttributeValue(element, "t");
             date = default;
             dayType = 0;
 
@@ -29,7 +34,11 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
                 return false;
             }
 
-            dayType = int.Parse(type);
+            if (!int.TryParse(type, out dayType))
+            {
+                return false;
+            }
+
             return DateOnly.TryParseExact($"{year}.{day}", "yyyy.MM.dd", out date);
         }
 
