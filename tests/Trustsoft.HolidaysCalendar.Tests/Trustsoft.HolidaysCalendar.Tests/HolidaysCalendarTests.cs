@@ -84,7 +84,7 @@ public class HolidaysCalendarTests
         var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
         var expected = DateOnly.ParseExact(expectedString, "yyyy.MM.dd");
 
-        var actual = this.calendar.AdjustForHolidays(date);
+        var actual = this.calendar.AdjustForHolidaysAndWeekends(date);
         Assert.AreEqual(actual, expected);
     }
 

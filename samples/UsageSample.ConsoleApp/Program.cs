@@ -62,12 +62,12 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.AdjustForHolidays(DateOnly date) usage");
+        Console.WriteLine("HolidaysCalendar.AdjustForHolidaysAndWeekends(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
         {
-            var result = calendar.AdjustForHolidays(date);
+            var result = calendar.AdjustForHolidaysAndWeekends(date);
             Console.WriteLine($"#{++number:00}: {date:dd.MM.yyyy} adjusted for holidays day is = {result}");
         }
 

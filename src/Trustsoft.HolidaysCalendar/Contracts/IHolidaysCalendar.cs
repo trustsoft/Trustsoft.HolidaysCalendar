@@ -11,7 +11,7 @@ public interface IHolidaysCalendar
 {
     void Initialize(IHolidaysDataProvider provider);
 
-    DateOnly AdjustForHolidays(DateOnly date);
+    DateOnly AdjustForHolidaysAndWeekends(DateOnly date);
 
     DateOnly GetNextWorkingDay(DateOnly date);
 

@@ -33,7 +33,7 @@ public class HolidaysCalendar : IHolidaysCalendar
         this.yearsHashSet.Add(year);
     }
 
-    public DateOnly AdjustForHolidays(DateOnly date)
+    public DateOnly AdjustForHolidaysAndWeekends(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
 
