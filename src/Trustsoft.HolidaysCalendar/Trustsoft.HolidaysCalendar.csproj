@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="Trustsoft.HolidaysCalendar.UnitTests" />
+		<InternalsVisibleTo Include="Trustsoft.HolidaysCalendar.Tests" />
 	</ItemGroup>
 
 </Project>
