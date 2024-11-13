@@ -15,7 +15,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
 {
     private const string BaseUrl = "http://xmlcalendar.ru/data/ru/{0}/calendar.xml";
 
-    public IHolidaysData GetHolidays(int year)
+    public IHolidaysData GetHolidaysData(int year)
     {
         string GetFirstAttributeValue(XElement element, string attributeName)
         {

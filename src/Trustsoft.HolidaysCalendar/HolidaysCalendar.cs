@@ -19,7 +19,7 @@ public class HolidaysCalendar : IHolidaysCalendar
 
     private void LoadDataByYear(int year)
     {
-        IHolidaysData holidaysData = this.dataProvider.GetHolidays(year);
+        IHolidaysData holidaysData = this.dataProvider.GetHolidaysData(year);
         foreach (var date in holidaysData.Holidays)
         {
             this.holidaysHashSet.Add(date);
