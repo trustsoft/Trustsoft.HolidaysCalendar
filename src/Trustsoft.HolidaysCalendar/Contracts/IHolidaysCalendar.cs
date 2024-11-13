@@ -9,8 +9,6 @@ namespace Trustsoft.HolidaysCalendar.Contracts;
 
 public interface IHolidaysCalendar
 {
-    void Initialize(IHolidaysDataProvider provider);
-
     /// <summary>
     ///   Adjusts the specified <param name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>

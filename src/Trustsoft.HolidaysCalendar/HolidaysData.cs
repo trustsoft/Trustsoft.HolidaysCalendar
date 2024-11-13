@@ -15,6 +15,4 @@ internal class HolidaysData(IReadOnlyList<DateOnly> holidays, IReadOnlyList<Date
     public IReadOnlyList<DateOnly> Holidays { get; } = holidays ?? [];
 
     public IReadOnlyList<DateOnly> WorkingWeekends { get; } = workingWeekends ?? [];
-
-    public bool IsEmpty => !(this.Holidays.Count > 0 || this.WorkingWeekends.Count > 0);
 }

@@ -18,17 +18,17 @@ public class HolidaysCalendarTests
     [TestInitialize]
     public void Initialize()
     {
-        var holidaysCalendar = new HolidaysCalendar();
         var dataProvider = new XmlCalendarDataProvider();
-        holidaysCalendar.Initialize(dataProvider);
+        var holidaysCalendar = new HolidaysCalendar(dataProvider);
         this.calendar = holidaysCalendar;
     }
 
     [TestMethod]
-    public void CreateAndInitializeTest()
+    public void CreationTest()
     {
-        IHolidaysCalendar holidaysCalendar = new HolidaysCalendar();
-        holidaysCalendar.Initialize(new XmlCalendarDataProvider());
+        IHolidaysCalendar holidaysCalendar = new HolidaysCalendar(new XmlCalendarDataProvider());
+
+        Assert.IsNotNull(holidaysCalendar);
     }
 
     [DataTestMethod]

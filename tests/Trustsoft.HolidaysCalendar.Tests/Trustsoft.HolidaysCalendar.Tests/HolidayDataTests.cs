@@ -7,60 +7,46 @@
 
 namespace Trustsoft.HolidaysCalendar.Tests;
 
-using Trustsoft.HolidaysCalendar.Contracts;
-
 [TestClass]
 public class HolidayDataTests
 {
     [TestMethod]
-    public void HolidayDataIsNullTest1()
+    public void CreationTest1()
     {
-        IHolidaysData data = new HolidaysData([], null);
+        var holidaysData = new HolidaysData(new List<DateOnly>(), new List<DateOnly>());
 
-        Assert.IsTrue(data.IsEmpty);
-
-        data = new HolidaysData(null, []);
-
-        Assert.IsTrue(data.IsEmpty);
-
-        data = new HolidaysData(null, null);
-
-        Assert.IsTrue(data.IsEmpty);
+        Assert.IsNotNull(holidaysData);
+        Assert.IsNotNull(holidaysData.Holidays);
+        Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
 
     [TestMethod]
-    public void HolidayDataIsEmptyTest1()
+    public void CreationTest2()
     {
-        var list1 = new List<DateOnly>();
-        var list2 = new List<DateOnly>();
+        var holidaysData = new HolidaysData(null, new List<DateOnly>());
 
-        IHolidaysData data = new HolidaysData(list1, list2);
-        Assert.IsTrue(data.IsEmpty);
+        Assert.IsNotNull(holidaysData);
+        Assert.IsNotNull(holidaysData.Holidays);
+        Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
 
     [TestMethod]
-    public void HolidayDataIsNotEmptyTest1()
+    public void CreationTest3()
     {
-        var list1 = new List<DateOnly>
-        {
-            new DateOnly(2024, 10, 10)
-        };
+        var holidaysData = new HolidaysData(new List<DateOnly>(), null);
 
-        IHolidaysData data = new HolidaysData(list1, new List<DateOnly>());
-
-        Assert.IsFalse(data.IsEmpty);
+        Assert.IsNotNull(holidaysData);
+        Assert.IsNotNull(holidaysData.Holidays);
+        Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
 
     [TestMethod]
-    public void HolidayDataIsNotEmptyTest2()
+    public void CreationTest4()
     {
-        var list2 = new List<DateOnly>
-        {
-            new DateOnly(2024, 10, 10)
-        };
+        var holidaysData = new HolidaysData(null, null);
 
-        IHolidaysData data = new HolidaysData(new List<DateOnly>(), list2);
-
-        Assert.IsFalse(data.IsEmpty);
+        Assert.IsNotNull(holidaysData);
+        Assert.IsNotNull(holidaysData.Holidays);
+        Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
 }

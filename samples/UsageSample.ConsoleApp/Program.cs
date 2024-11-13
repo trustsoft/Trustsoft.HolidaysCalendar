@@ -22,9 +22,8 @@ internal static class Program
         Console.WriteLine("// HolidaysCalendar Sample Usage //");
         Console.WriteLine("//-------------------------------//");
 
-        IHolidaysCalendar calendar = new HolidaysCalendar();
         var dataProvider = new XmlCalendarDataProvider();
-        calendar.Initialize(dataProvider);
+        IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider);
 
         Console.WriteLine();
         Console.WriteLine("HolidaysCalendar.IsHoliday(DateOnly date) usage");

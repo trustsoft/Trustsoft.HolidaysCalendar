@@ -7,7 +7,12 @@ public class HolidaysCalendar : IHolidaysCalendar
     private readonly HashSet<DateOnly> holidaysHashSet = [];
     private readonly HashSet<DateOnly> workingWeekendsHashSet = [];
     private readonly HashSet<int> yearsHashSet = [];
-    private IHolidaysDataProvider dataProvider = null!;
+    private IHolidaysDataProvider dataProvider;
+
+    public HolidaysCalendar(IHolidaysDataProvider dataProvider)
+    {
+        this.dataProvider = dataProvider ?? throw new ArgumentNullException(nameof(dataProvider));
+    }
 
     private void EnsureDataLoaded(int year)
     {
@@ -76,10 +81,5 @@ public class HolidaysCalendar : IHolidaysCalendar
     {
         return date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday &&
                !this.IsWorkingWeekend(date);
-    }
-
-    public void Initialize(IHolidaysDataProvider provider)
-    {
-        this.dataProvider = provider ?? throw new ArgumentNullException(nameof(provider));
     }
 }
