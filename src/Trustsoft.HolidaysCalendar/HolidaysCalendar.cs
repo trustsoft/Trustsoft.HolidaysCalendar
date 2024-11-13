@@ -1,6 +1,13 @@
-﻿using Trustsoft.HolidaysCalendar.Contracts;
+﻿// -------------------------Copyright © 2024 M.Sukhanov. All rights reserved.-------------------------
+//  <copyright file="HolidaysCalendar.cs" author="M.Sukhanov">
+//      Copyright © 2024 M.Sukhanov. All rights reserved.
+//  </copyright>
+//  <date>10.11.2024</date>
+// -------------------------Copyright © 2024 M.Sukhanov. All rights reserved.-------------------------
 
 namespace Trustsoft.HolidaysCalendar;
+
+using Trustsoft.HolidaysCalendar.Contracts;
 
 public class HolidaysCalendar : IHolidaysCalendar
 {
