@@ -7,6 +7,7 @@ using Trustsoft.HolidaysCalendar.DataProviders;
 internal static class Program
 {
     private static readonly Random Rnd = new Random(Environment.TickCount);
+    private static readonly int CurrentYear = DateTime.Today.Year;
 
     static void Main()
     {
@@ -82,10 +83,11 @@ internal static class Program
         {
             list.Add(GetRandomDateOnly());
         }
-        list.Add(new DateOnly(2024, 1, 2));
-        list.Add(new DateOnly(2024, 5, 8));
+        list.Add(new DateOnly(CurrentYear, month: 1, day: 2));
+        list.Add(new DateOnly(CurrentYear, month: 3, day: 8));
+        list.Add(new DateOnly(CurrentYear, month: 5, day: 9));
 
-        foreach (var dateOnly in list.OrderBy(d => d))
+        foreach (var dateOnly in list.OrderBy(date => date))
         {
             yield return dateOnly;
         }
@@ -94,7 +96,7 @@ internal static class Program
     private static DateOnly GetRandomDateOnly()
     {
         var month = Rnd.Next(1, 12);
-        var day = Program.Rnd.Next(1, DateTime.DaysInMonth(2024, month));
-        return new DateOnly(2024, month, day);
+        var day = Rnd.Next(1, DateTime.DaysInMonth(CurrentYear, month));
+        return new DateOnly(CurrentYear, month, day);
     }
 }
