@@ -13,9 +13,10 @@ public class HolidayDataTests
     [TestMethod]
     public void CreationTest1()
     {
-        var holidaysData = new HolidaysData(new List<DateOnly>(), new List<DateOnly>());
+        var holidaysData = HolidaysData.Valid(new List<DateOnly>(), new List<DateOnly>());
 
         Assert.IsNotNull(holidaysData);
+        Assert.IsTrue(holidaysData.IsValid);
         Assert.IsNotNull(holidaysData.Holidays);
         Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
@@ -23,9 +24,10 @@ public class HolidayDataTests
     [TestMethod]
     public void CreationTest2()
     {
-        var holidaysData = new HolidaysData(null, new List<DateOnly>());
+        var holidaysData = HolidaysData.Valid(null!, new List<DateOnly>());
 
         Assert.IsNotNull(holidaysData);
+        Assert.IsTrue(holidaysData.IsValid);
         Assert.IsNotNull(holidaysData.Holidays);
         Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
@@ -33,9 +35,10 @@ public class HolidayDataTests
     [TestMethod]
     public void CreationTest3()
     {
-        var holidaysData = new HolidaysData(new List<DateOnly>(), null);
+        var holidaysData = HolidaysData.Valid(new List<DateOnly>());
 
         Assert.IsNotNull(holidaysData);
+        Assert.IsTrue(holidaysData.IsValid);
         Assert.IsNotNull(holidaysData.Holidays);
         Assert.IsNotNull(holidaysData.WorkingWeekends);
     }
@@ -43,9 +46,10 @@ public class HolidayDataTests
     [TestMethod]
     public void CreationTest4()
     {
-        var holidaysData = new HolidaysData(null, null);
+        var holidaysData = HolidaysData.Invalid();
 
         Assert.IsNotNull(holidaysData);
+        Assert.IsFalse(holidaysData.IsValid);
         Assert.IsNotNull(holidaysData.Holidays);
         Assert.IsNotNull(holidaysData.WorkingWeekends);
     }

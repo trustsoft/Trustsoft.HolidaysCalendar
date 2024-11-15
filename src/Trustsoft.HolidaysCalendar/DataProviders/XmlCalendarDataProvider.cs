@@ -83,7 +83,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             }
         }
 
-        return new HolidaysData(holidays, workingWeekends);
+        return HolidaysData.Valid(holidays, workingWeekends);
     }
 
     private static async Task<bool> IsUrlExists(string url)
