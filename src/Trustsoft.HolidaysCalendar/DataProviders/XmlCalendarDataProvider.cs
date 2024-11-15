@@ -8,6 +8,7 @@
 namespace Trustsoft.HolidaysCalendar.DataProviders;
 
 using System;
+using System.Diagnostics;
 using System.Xml.Linq;
 using Trustsoft.HolidaysCalendar.Contracts;
 
@@ -43,6 +44,14 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
         }
 
         var requestUri = string.Format(BaseUrl, year);
+        var urlExists = IsUrlExists(requestUri).Result;
+
+        if (!urlExists)
+        {
+            Debug.WriteLine($"PRIMARY: NO DATA FOR YEAR {year}");
+            return HolidaysData.Invalid();
+        }
+
         using var httpClient = new HttpClient();
         httpClient.Timeout = TimeSpan.FromSeconds(60);
         var response = httpClient.GetStringAsync(requestUri).Result;
@@ -74,6 +83,25 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             }
         }
 
-        return new HolidaysData(holidays, workingWeekends);
+        return HolidaysData.Valid(holidays, workingWeekends);
+    }
+
+    private static async Task<bool> IsUrlExists(string url)
+    {
+        try
+        {
+            using var client = new HttpClient();
+
+            //Do only Head request to avoid download full content
+            var requestMessage = new HttpRequestMessage(HttpMethod.Head, url);
+            var response = await client.SendAsync(requestMessage);
+
+            // if we have a SuccessStatusCode so url is available 
+            return response.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

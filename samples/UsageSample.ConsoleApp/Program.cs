@@ -23,7 +23,8 @@ internal static class Program
         Console.WriteLine("//-------------------------------//");
 
         var dataProvider = new XmlCalendarDataProvider();
-        IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider);
+        var fallbackDataProvider = new FallbackDataProvider();
+        IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
 
         Console.WriteLine();
         Console.WriteLine("HolidaysCalendar.IsHoliday(DateOnly date) usage");
