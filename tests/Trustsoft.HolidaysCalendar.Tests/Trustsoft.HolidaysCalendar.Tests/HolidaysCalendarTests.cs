@@ -11,7 +11,7 @@ using Trustsoft.HolidaysCalendar.Contracts;
 using Trustsoft.HolidaysCalendar.DataProviders;
 
 [TestClass]
-public class HolidaysCalendarTests
+public partial class HolidaysCalendarTests
 {
     private IHolidaysCalendar calendar = null!;
 
@@ -19,50 +19,19 @@ public class HolidaysCalendarTests
     public void Initialize()
     {
         var dataProvider = new XmlCalendarDataProvider();
-        var holidaysCalendar = new HolidaysCalendar(dataProvider);
+        var fallbackDataProvider = new FallbackDataProvider();
+        var holidaysCalendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
         this.calendar = holidaysCalendar;
     }
 
     [TestMethod]
     public void CreationTest()
     {
-        IHolidaysCalendar holidaysCalendar = new HolidaysCalendar(new XmlCalendarDataProvider());
+        var dataProvider = new XmlCalendarDataProvider();
+        var fallbackDataProvider = new FallbackDataProvider();
+        IHolidaysCalendar holidaysCalendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
 
         Assert.IsNotNull(holidaysCalendar);
-    }
-
-    [DataTestMethod]
-    [DataRow("2024.01.01")]
-    [DataRow("2024.01.02")]
-    [DataRow("2024.01.03")]
-    [DataRow("2024.01.04")]
-    [DataRow("2024.01.05")]
-    [DataRow("2024.01.06")]
-    [DataRow("2024.01.07")]
-    [DataRow("2024.01.08")]
-    [DataRow("2024.02.23")]
-    [DataRow("2024.03.08")]
-    [DataRow("2024.05.01")]
-    [DataRow("2024.05.09")]
-    [DataRow("2024.06.12")]
-    [DataRow("2024.11.04")]
-    public void IsHolidayTest(string dateOnlyString)
-    {
-        var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
-        Assert.IsTrue(this.calendar.IsHoliday(date));
-    }
-
-    [DataTestMethod]
-    [DataRow("2024.01.09")]
-    [DataRow("2024.01.10")]
-    [DataRow("2024.02.22")]
-    [DataRow("2024.03.07")]
-    [DataRow("2024.04.27")]
-    [DataRow("2024.05.02")]
-    public void IsNotHolidayTest(string dateOnlyString)
-    {
-        var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
-        Assert.IsFalse(this.calendar.IsHoliday(date));
     }
 
     [DataTestMethod]
@@ -79,7 +48,7 @@ public class HolidaysCalendarTests
     [DataRow("2024.04.29", "2024.05.02")]
     [DataRow("2024.06.12", "2024.06.13")]
     [DataRow("2024.11.04", "2024.11.05")]
-    public void AdjustForHolidaysTest(string dateOnlyString, string expectedString)
+    public void AdjustForHolidays2024Test(string dateOnlyString, string expectedString)
     {
         var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
         var expected = DateOnly.ParseExact(expectedString, "yyyy.MM.dd");
@@ -90,7 +59,7 @@ public class HolidaysCalendarTests
 
     [DataTestMethod]
     [DataRow("2024.01.13")]
-    public void IsWeekendTest(string dateOnlyString)
+    public void IsWeekend2024Test(string dateOnlyString)
     {
         var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
         Assert.IsTrue(this.calendar.IsWeekend(date));
@@ -100,7 +69,7 @@ public class HolidaysCalendarTests
     [DataRow("2024.02.23")]
     [DataRow("2024.04.27")]
     [DataRow("2024.12.28")]
-    public void IsNotWeekendTest(string dateOnlyString)
+    public void IsNotWeekend2024Test(string dateOnlyString)
     {
         var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
         Assert.IsFalse(this.calendar.IsWeekend(date));
