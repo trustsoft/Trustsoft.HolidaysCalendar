@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<BaseOutputPath>..\..\artifacts\</BaseOutputPath>
+		<SignAssembly>False</SignAssembly>
+		<Version>1.0.0-rc </Version>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(Configuration)=='Release'">
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Authors>Trustsoft</Authors>
+        <Title>Work with holidays calendary with ease.</Title>
+        <Description>Extendable holidays calendar.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/trustsoft/Trustsoft.HolidaysCalendar.git</RepositoryUrl>
+        <PackageTags>calendar;holiday</PackageTags>
+        <PackageReleaseNotes>First public release</PackageReleaseNotes>
+        <PackageOutputPath>..\..\packages\</PackageOutputPath>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <IncludeSymbols>True</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Trustsoft.HolidaysCalendar.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
