@@ -17,7 +17,7 @@ using Trustsoft.HolidaysCalendar.Contracts;
 /// <seealso cref="IHolidaysCalendar" />
 public class HolidaysCalendar : IHolidaysCalendar
 {
-    private readonly IHolidaysDataProvider dataProvider;
+    private readonly IHolidaysDataProvider primaryDataProvider;
     private readonly IHolidaysDataProvider fallbackDataProvider;
     private readonly HolidaysDataCache primaryData = new HolidaysDataCache();
     private readonly HolidaysDataCache fallbackData = new HolidaysDataCache();
@@ -25,18 +25,17 @@ public class HolidaysCalendar : IHolidaysCalendar
     /// <summary>
     ///   Initializes a new instance of the <see cref="HolidaysCalendar" /> class.
     /// </summary>
-    /// <param name="dataProvider"> The primary data provider. </param>
-    /// <param name="fallbackDataProvider1">
-    ///   The fallback data provider if <paramref name="dataProvider" /> is
-    ///   unavailable.
+    /// <param name="primaryProvider"> The primary data provider. </param>
+    /// <param name="fallbackProvider">
+    ///   The fallback data provider if <paramref name="primaryProvider" /> is unavailable.
     /// </param>
-    /// <exception cref="System.ArgumentNullException"> dataProvider </exception>
-    /// <exception cref="System.ArgumentNullException"> fallbackDataProvider1 </exception>
+    /// <exception cref="System.ArgumentNullException"> primaryProvider </exception>
+    /// <exception cref="System.ArgumentNullException"> fallbackProvider </exception>
     /// TODO Edit XML Comment Template for #ctor
-    public HolidaysCalendar(IHolidaysDataProvider dataProvider, IFallbackDataProvider fallbackDataProvider1)
+    public HolidaysCalendar(IHolidaysDataProvider primaryProvider, IFallbackDataProvider fallbackProvider)
     {
-        this.dataProvider = dataProvider ?? throw new ArgumentNullException(nameof(dataProvider));
-        this.fallbackDataProvider = fallbackDataProvider1 ?? throw new ArgumentNullException(nameof(fallbackDataProvider1));
+        this.primaryDataProvider = primaryProvider ?? throw new ArgumentNullException(nameof(primaryProvider));
+        this.fallbackDataProvider = fallbackProvider ?? throw new ArgumentNullException(nameof(fallbackProvider));
     }
 
     private void EnsureDataLoaded(int year)
@@ -73,7 +72,7 @@ public class HolidaysCalendar : IHolidaysCalendar
 
     private bool LoadDataFromMainProvider(int year)
     {
-        IHolidaysData data = this.dataProvider.GetHolidaysData(year);
+        IHolidaysData data = this.primaryDataProvider.GetHolidaysData(year);
 
         // update primary data if exists
         return this.primaryData.UpdateData(data, year);
