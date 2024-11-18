@@ -11,6 +11,12 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Trustsoft.HolidaysCalendar.Contracts;
 
+/// <summary>
+///   Russian holidays fallback data provider for <see cref="IHolidaysCalendar" /> implementation.
+///   Implements the <see cref="IFallbackDataProvider" />.
+/// </summary>
+/// <remarks> Generated data contains all major Russian holidays. </remarks>
+/// <seealso cref="IFallbackDataProvider" />
 public class FallbackDataProvider : IFallbackDataProvider
 {
     private readonly IReadOnlyList<HolidayData> holidayDescriptions =
@@ -33,6 +39,14 @@ public class FallbackDataProvider : IFallbackDataProvider
 
     private readonly Dictionary<int, List<DateOnly>> holidaysCache = [];
 
+    /// <summary>
+    ///   Gets the generated holidays data for specified year.
+    /// </summary>
+    /// <param name="year"> The year to get holidays data for. </param>
+    /// <remarks> Generated data contains all major Russian holidays. </remarks>
+    /// <returns>
+    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified year.
+    /// </returns>
     public IHolidaysData GetHolidaysData(int year)
     {
         if (!this.holidaysCache.Keys.Contains(year))

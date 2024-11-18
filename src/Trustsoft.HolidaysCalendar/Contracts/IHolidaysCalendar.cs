@@ -7,6 +7,9 @@
 
 namespace Trustsoft.HolidaysCalendar.Contracts;
 
+/// <summary>
+///   Describes a set of functions for working with holiday calendar.
+/// </summary>
 public interface IHolidaysCalendar
 {
     /// <summary>

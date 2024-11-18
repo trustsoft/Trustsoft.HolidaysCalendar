@@ -10,6 +10,11 @@ namespace Trustsoft.HolidaysCalendar;
 using System.Diagnostics;
 using Trustsoft.HolidaysCalendar.Contracts;
 
+/// <summary>
+///   Provides a set of functions for working with holiday calendar.
+///   Implements the <see cref="IHolidaysCalendar" />
+/// </summary>
+/// <seealso cref="IHolidaysCalendar" />
 public class HolidaysCalendar : IHolidaysCalendar
 {
     private readonly IHolidaysDataProvider dataProvider;
@@ -17,6 +22,17 @@ public class HolidaysCalendar : IHolidaysCalendar
     private readonly HolidaysDataCache primaryData = new HolidaysDataCache();
     private readonly HolidaysDataCache fallbackData = new HolidaysDataCache();
 
+    /// <summary>
+    ///   Initializes a new instance of the <see cref="HolidaysCalendar" /> class.
+    /// </summary>
+    /// <param name="dataProvider"> The primary data provider. </param>
+    /// <param name="fallbackDataProvider1">
+    ///   The fallback data provider if <paramref name="dataProvider" /> is
+    ///   unavailable.
+    /// </param>
+    /// <exception cref="System.ArgumentNullException"> dataProvider </exception>
+    /// <exception cref="System.ArgumentNullException"> fallbackDataProvider1 </exception>
+    /// TODO Edit XML Comment Template for #ctor
     public HolidaysCalendar(IHolidaysDataProvider dataProvider, IFallbackDataProvider fallbackDataProvider1)
     {
         this.dataProvider = dataProvider ?? throw new ArgumentNullException(nameof(dataProvider));
@@ -71,6 +87,12 @@ public class HolidaysCalendar : IHolidaysCalendar
         return this.fallbackData.UpdateData(data, year);
     }
 
+    /// <summary>
+    ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
+    /// </summary>
+    /// <param name="date"> The date to adjust for. </param>
+    /// <returns> The date adjusted for holidays and weekends. </returns>
+    /// TODO Edit XML Comment Template for AdjustForHolidaysAndWeekends
     public DateOnly AdjustForHolidaysAndWeekends(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -83,6 +105,12 @@ public class HolidaysCalendar : IHolidaysCalendar
         return date;
     }
 
+    /// <summary>
+    ///   Gets the next working day after specified <paramref name="date" />.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns> The next working day. </returns>
+    /// TODO Edit XML Comment Template for GetNextWorkingDay
     public DateOnly GetNextWorkingDay(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -96,6 +124,12 @@ public class HolidaysCalendar : IHolidaysCalendar
         return date;
     }
 
+    /// <summary>
+    ///   Determines whether the specified <paramref name="date" /> is holiday.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns> <c> true </c> if the specified date is holiday; otherwise, <c> false </c>. </returns>
+    /// TODO Edit XML Comment Template for IsHoliday
     public bool IsHoliday(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -103,6 +137,12 @@ public class HolidaysCalendar : IHolidaysCalendar
         return this.primaryData.IsHoliday(date) || this.fallbackData.IsHoliday(date);
     }
 
+    /// <summary>
+    ///   Determines whether the specified <paramref name="date" /> is working weekend.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns> <c> true </c> if the specified date is working weekend; otherwise, <c> false </c>. </returns>
+    /// TODO Edit XML Comment Template for IsWorkingWeekend
     public bool IsWorkingWeekend(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -110,6 +150,13 @@ public class HolidaysCalendar : IHolidaysCalendar
         return this.primaryData.IsWorkingWeekend(date) || this.fallbackData.IsWorkingWeekend(date);
     }
 
+    /// <summary>
+    ///   Determines whether the specified <paramref name="date" /> is a weekend,
+    ///   taking into account working weekends.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns> <c> true </c> if the specified date is a weekend; otherwise, <c> false </c>. </returns>
+    /// TODO Edit XML Comment Template for IsWeekend
     public bool IsWeekend(DateOnly date)
     {
         return date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday &&

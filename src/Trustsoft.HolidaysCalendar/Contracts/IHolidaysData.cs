@@ -7,6 +7,9 @@
 
 namespace Trustsoft.HolidaysCalendar.Contracts;
 
+/// <summary>
+///   Describes a result of fetching data by <see cref="IHolidaysDataProvider.GetHolidaysData" />.
+/// </summary>
 public interface IHolidaysData
 {
     /// <summary>

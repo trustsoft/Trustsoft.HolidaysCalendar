@@ -12,10 +12,23 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using Trustsoft.HolidaysCalendar.Contracts;
 
+/// <summary>
+///   Russian holidays data provider for <see cref="T:IHolidaysCalendar" /> implementation.
+///   Implements the <see cref="T:IHolidaysDataProvider" />.
+/// </summary>
+/// <remarks> This provider fetches data from 'http://xmlcalendar.ru'. </remarks>
+/// <seealso cref="T:IHolidaysDataProvider" />
 public class XmlCalendarDataProvider : IHolidaysDataProvider
 {
     private const string BaseUrl = "http://xmlcalendar.ru/data/ru/{0}/calendar.xml";
 
+    /// <summary>
+    ///   Gets the holidays data for specified year.
+    /// </summary>
+    /// <param name="year"> The year to get holidays data for. </param>
+    /// <returns>
+    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified year.
+    /// </returns>
     public IHolidaysData GetHolidaysData(int year)
     {
         string GetFirstAttributeValue(XElement element, string attributeName)
