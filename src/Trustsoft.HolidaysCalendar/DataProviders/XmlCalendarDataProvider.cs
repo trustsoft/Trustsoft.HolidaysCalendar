@@ -62,7 +62,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
         if (!urlExists)
         {
             Debug.WriteLine($"PRIMARY: NO DATA FOR YEAR {year}");
-            return HolidaysData.Invalid();
+            return HolidaysDataFactory.Invalid();
         }
 
         using var httpClient = new HttpClient();
@@ -96,7 +96,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             }
         }
 
-        return HolidaysData.Valid(holidays, workingWeekends);
+        return HolidaysDataFactory.Valid(holidays, workingWeekends);
     }
 
     private static async Task<bool> IsUrlExists(string url)

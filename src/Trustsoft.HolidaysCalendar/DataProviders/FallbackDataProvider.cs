@@ -56,7 +56,7 @@ public class FallbackDataProvider : IFallbackDataProvider
         }
 
         var holidays = this.holidaysCache[year];
-        return HolidaysData.Valid(holidays);
+        return HolidaysDataFactory.Valid(holidays);
     }
 
     private void GenerateDataForYear(int year)
