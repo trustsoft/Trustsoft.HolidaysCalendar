@@ -86,8 +86,12 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
                         holidays.Add(date);
                         break;
                     // if working day, pre-holiday
-                    //case 2:
-                    //    break;
+                    case 2:
+                        if (date.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday)
+                        {
+                            workingWeekends.Add(date);
+                        }
+                        break;
                     // if working weekend
                     case 3:
                         workingWeekends.Add(date);
