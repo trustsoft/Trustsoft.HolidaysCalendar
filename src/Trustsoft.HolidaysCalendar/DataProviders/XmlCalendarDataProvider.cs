@@ -56,20 +56,26 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             return DateOnly.TryParseExact($"{year}.{day}", "yyyy.MM.dd", out date);
         }
 
+        XDocument LoadXDocument(string uri)
+        {
+            using var httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromSeconds(60);
+            string response = httpClient.GetStringAsync(uri).Result;
+            using var reader = new StringReader(response);
+            XDocument xDocument = XDocument.Load(reader);
+            return xDocument;
+        }
+
         var requestUri = string.Format(BaseUrl, year);
         var urlExists = IsUrlExists(requestUri).Result;
 
         if (!urlExists)
         {
-            Debug.WriteLine($"PRIMARY: NO DATA FOR YEAR {year}");
+            Debug.WriteLine($"XmlCalendarDataProvider: NO DATA FOR YEAR {year}");
             return HolidaysDataFactory.Invalid();
         }
 
-        using var httpClient = new HttpClient();
-        httpClient.Timeout = TimeSpan.FromSeconds(60);
-        var response = httpClient.GetStringAsync(requestUri).Result;
-        using var reader = new StringReader(response);
-        XDocument doc = XDocument.Load(reader);
+        XDocument doc = LoadXDocument(requestUri);
         var days = doc.Descendants("day");
 
         var holidays = new List<DateOnly>();

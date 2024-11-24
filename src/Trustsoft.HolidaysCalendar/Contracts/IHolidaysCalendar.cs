@@ -8,7 +8,7 @@
 namespace Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Describes a set of functions for working with holiday calendar.
+///   Describes a set of functions to work with holiday calendar.
 /// </summary>
 public interface IHolidaysCalendar
 {
@@ -27,15 +27,15 @@ public interface IHolidaysCalendar
     DateOnly GetNextWorkingDay(DateOnly date);
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is holiday.
+    ///   Determines whether the specified <paramref name="date" /> is a holiday.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
     /// <returns> <c> true </c> if the specified date is holiday; otherwise, <c> false </c>. </returns>
     bool IsHoliday(DateOnly date);
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is a weekend, taking into account working
-    ///   weekends.
+    ///   Determines whether the specified <paramref name="date" /> is a weekend,
+    ///   taking into account working weekends.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
     /// <returns> <c> true </c> if the specified date is a weekend; otherwise, <c> false </c>. </returns>
