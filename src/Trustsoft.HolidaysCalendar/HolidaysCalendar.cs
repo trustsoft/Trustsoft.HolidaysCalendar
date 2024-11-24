@@ -11,7 +11,7 @@ using System.Diagnostics;
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Provides a set of functions for working with holiday calendar.
+///   Provides a set of functions to work with holiday calendar.
 ///   Implements the <see cref="IHolidaysCalendar" />
 /// </summary>
 /// <seealso cref="IHolidaysCalendar" />

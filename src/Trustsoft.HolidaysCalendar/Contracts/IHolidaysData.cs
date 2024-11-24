@@ -10,6 +10,10 @@ namespace Trustsoft.HolidaysCalendar.Contracts;
 /// <summary>
 ///   Describes a result of fetching data by <see cref="IHolidaysDataProvider.GetHolidaysData" />.
 /// </summary>
+/// <remarks>
+///   For custom data provider developers:
+///   Use <see cref="HolidaysDataFactory" /> to create objects that implement this interface.
+/// </remarks>
 public interface IHolidaysData
 {
     /// <summary>
@@ -25,7 +29,7 @@ public interface IHolidaysData
     IReadOnlyList<DateOnly> WorkingWeekends { get; }
 
     /// <summary>
-    ///   Returns true if contained data is valid.
+    ///   Gets a value indicating the validity of the contained data.
     /// </summary>
     /// <value> <c> true </c> if contained data is valid; otherwise, <c> false </c>. </value>
     bool IsValid { get; }
