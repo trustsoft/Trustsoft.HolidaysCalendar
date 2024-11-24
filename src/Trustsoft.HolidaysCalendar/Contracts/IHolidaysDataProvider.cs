@@ -8,9 +8,9 @@
 namespace Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Describes a holiday data provider.
+///   Describes a holiday data provider functionality.
 /// </summary>
-/// <seealso cref="IHolidaysCalendar"/>.
+/// <seealso cref="IHolidaysCalendar" />
 public interface IHolidaysDataProvider
 {
     /// <summary>
@@ -18,7 +18,8 @@ public interface IHolidaysDataProvider
     /// </summary>
     /// <param name="year"> The year to get holidays data for. </param>
     /// <returns>
-    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified <paramref name="year"/>.
+    ///   The <see cref="IHolidaysData" /> object that contains a result
+    ///   of fetching holidays data for specified <paramref name="year"/>.
     /// </returns>
     IHolidaysData GetHolidaysData(int year);
 }

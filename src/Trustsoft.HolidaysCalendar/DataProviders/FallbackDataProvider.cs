@@ -15,25 +15,27 @@ using Trustsoft.HolidaysCalendar.Contracts;
 ///   Russian holidays fallback data provider for <see cref="IHolidaysCalendar" /> implementation.
 ///   Implements the <see cref="IFallbackDataProvider" />.
 /// </summary>
-/// <remarks> Generated data contains all major Russian holidays. </remarks>
+/// <remarks> Generated data contains dates for all major Russian holidays. </remarks>
 /// <seealso cref="IFallbackDataProvider" />
 public class FallbackDataProvider : IFallbackDataProvider
 {
     private readonly IReadOnlyList<HolidayData> holidayDescriptions =
     [
-        // "Новогодние праздники"
-        new HolidayData(Month: 1, [1, 2, 3, 4, 5, 6, 7, 8]),
-        // "День защитника Отечества"
+        // "New Year's Day" / "Новогодние праздники"
+        new HolidayData(Month: 1, [1, 2, 3, 4, 5, 6, 8]),
+        // "Orthodox Christmas Day" / "Рождество Христово"
+        new HolidayData(Month: 1, [7]),
+        // "Defender of the Fatherland Day" / "День защитника Отечества"
         new HolidayData(Month: 2, [23]),
-        // "Международный женский день"
+        // "International Women's Day" / "Международный женский день"
         new HolidayData(Month: 3, [8]),
-        // "Праздник Весны и Труда"
+        // "Spring and Labor Day" / "Праздник Весны и Труда"
         new HolidayData(Month: 5, [1]),
-        // "День Победы"
+        // "Victory Day" / "День Победы"
         new HolidayData(Month: 5, [9]),
-        // "День России"
+        // "Russia Day" / "День России"
         new HolidayData(Month: 6, [12]),
-        // "День народного единства"
+        // "Unity Day" / "День народного единства"
         new HolidayData(Month: 11, [4]),
     ];
 

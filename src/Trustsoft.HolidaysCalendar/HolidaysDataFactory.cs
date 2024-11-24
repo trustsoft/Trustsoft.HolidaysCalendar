@@ -18,7 +18,7 @@ using Trustsoft.HolidaysCalendar.Contracts;
 public static class HolidaysDataFactory
 {
     /// <summary>
-    ///   The implementation of <see cref="IHolidaysData" /> in an invalid state.
+    ///   Creates an implementation of <see cref="IHolidaysData" /> in an invalid state.
     /// </summary>
     /// <returns> The corresponding implementation of <see cref="IHolidaysData" /> </returns>
     public static IHolidaysData Invalid()
@@ -27,7 +27,7 @@ public static class HolidaysDataFactory
     }
 
     /// <summary>
-    ///   The implementation of <see cref="IHolidaysData" /> with provided data and in a valid state.
+    ///   Creates an implementation of <see cref="IHolidaysData" /> with provided data and in a valid state.
     /// </summary>
     /// <returns> The corresponding implementation of <see cref="IHolidaysData" /> </returns>
     public static IHolidaysData Valid(IReadOnlyList<DateOnly> holidays)
@@ -36,7 +36,7 @@ public static class HolidaysDataFactory
     }
 
     /// <summary>
-    ///   The implementation of <see cref="IHolidaysData" /> with provided data and in a valid state.
+    ///   Creates an implementation of <see cref="IHolidaysData" /> with provided data and in a valid state.
     /// </summary>
     /// <returns> The corresponding implementation of <see cref="IHolidaysData" /> </returns>
     public static IHolidaysData Valid(IReadOnlyList<DateOnly> holidays, IReadOnlyList<DateOnly> workingWeekends)

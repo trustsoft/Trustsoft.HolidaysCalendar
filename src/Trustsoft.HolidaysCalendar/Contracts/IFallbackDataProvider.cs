@@ -8,7 +8,7 @@
 namespace Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Describes a fallback holiday data provider.
+///   Describes a fallback holiday data provider functionality.
 ///   Extends the <see cref="IHolidaysDataProvider" />.
 /// </summary>
 /// <seealso cref="IHolidaysDataProvider" />

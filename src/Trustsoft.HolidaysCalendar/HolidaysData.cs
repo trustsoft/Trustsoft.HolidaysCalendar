@@ -9,6 +9,9 @@ namespace Trustsoft.HolidaysCalendar;
 
 using Trustsoft.HolidaysCalendar.Contracts;
 
+/// <summary>
+///   <see cref="IHolidaysData" /> implementation for internal usage.
+/// </summary>
 internal class HolidaysData(IReadOnlyList<DateOnly> holidays, IReadOnlyList<DateOnly> workingWeekends, bool isValid)
         : IHolidaysData
 {
