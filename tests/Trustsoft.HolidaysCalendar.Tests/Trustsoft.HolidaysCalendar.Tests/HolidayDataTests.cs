@@ -11,9 +11,10 @@ namespace Trustsoft.HolidaysCalendar.Tests;
 public class HolidayDataTests
 {
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest1()
     {
-        var holidaysData = HolidaysData.Valid(new List<DateOnly>(), new List<DateOnly>());
+        var holidaysData = HolidaysDataFactory.Valid(new List<DateOnly>(), new List<DateOnly>());
 
         Assert.IsNotNull(holidaysData);
         Assert.IsTrue(holidaysData.IsValid);
@@ -22,9 +23,10 @@ public class HolidayDataTests
     }
 
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest2()
     {
-        var holidaysData = HolidaysData.Valid(null!, new List<DateOnly>());
+        var holidaysData = HolidaysDataFactory.Valid(null!, new List<DateOnly>());
 
         Assert.IsNotNull(holidaysData);
         Assert.IsTrue(holidaysData.IsValid);
@@ -33,9 +35,10 @@ public class HolidayDataTests
     }
 
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest3()
     {
-        var holidaysData = HolidaysData.Valid(new List<DateOnly>());
+        var holidaysData = HolidaysDataFactory.Valid(new List<DateOnly>());
 
         Assert.IsNotNull(holidaysData);
         Assert.IsTrue(holidaysData.IsValid);
@@ -44,9 +47,10 @@ public class HolidayDataTests
     }
 
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest4()
     {
-        var holidaysData = HolidaysData.Invalid();
+        var holidaysData = HolidaysDataFactory.Invalid();
 
         Assert.IsNotNull(holidaysData);
         Assert.IsFalse(holidaysData.IsValid);

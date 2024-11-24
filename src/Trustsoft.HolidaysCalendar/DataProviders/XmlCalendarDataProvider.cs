@@ -13,11 +13,11 @@ using System.Xml.Linq;
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Russian holidays data provider for <see cref="T:IHolidaysCalendar" /> implementation.
-///   Implements the <see cref="T:IHolidaysDataProvider" />.
+///   Russian holidays data provider for <see cref="IHolidaysCalendar" /> implementation.
+///   Implements the <see cref="IHolidaysDataProvider" />.
 /// </summary>
 /// <remarks> This provider fetches data from 'http://xmlcalendar.ru'. </remarks>
-/// <seealso cref="T:IHolidaysDataProvider" />
+/// <seealso cref="IHolidaysDataProvider" />
 public class XmlCalendarDataProvider : IHolidaysDataProvider
 {
     private const string BaseUrl = "http://xmlcalendar.ru/data/ru/{0}/calendar.xml";
@@ -27,7 +27,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
     /// </summary>
     /// <param name="year"> The year to get holidays data for. </param>
     /// <returns>
-    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified year.
+    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified <paramref name="year"/>.
     /// </returns>
     public IHolidaysData GetHolidaysData(int year)
     {
@@ -62,7 +62,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
         if (!urlExists)
         {
             Debug.WriteLine($"PRIMARY: NO DATA FOR YEAR {year}");
-            return HolidaysData.Invalid();
+            return HolidaysDataFactory.Invalid();
         }
 
         using var httpClient = new HttpClient();
@@ -86,8 +86,12 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
                         holidays.Add(date);
                         break;
                     // if working day, pre-holiday
-                    //case 2:
-                    //    break;
+                    case 2:
+                        if (date.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday)
+                        {
+                            workingWeekends.Add(date);
+                        }
+                        break;
                     // if working weekend
                     case 3:
                         workingWeekends.Add(date);
@@ -96,7 +100,7 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             }
         }
 
-        return HolidaysData.Valid(holidays, workingWeekends);
+        return HolidaysDataFactory.Valid(holidays, workingWeekends);
     }
 
     private static async Task<bool> IsUrlExists(string url)

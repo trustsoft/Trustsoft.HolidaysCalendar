@@ -17,19 +17,4 @@ internal class HolidaysData(IReadOnlyList<DateOnly> holidays, IReadOnlyList<Date
     public IReadOnlyList<DateOnly> WorkingWeekends { get; } = workingWeekends ?? [];
 
     public bool IsValid { get; } = isValid;
-
-    internal static HolidaysData Invalid()
-    {
-        return new HolidaysData([], [], false);
-    }
-
-    internal static HolidaysData Valid(IReadOnlyList<DateOnly> holidays)
-    {
-        return Valid(holidays, []);
-    }
-
-    internal static HolidaysData Valid(IReadOnlyList<DateOnly> holidays, IReadOnlyList<DateOnly> workingWeekends)
-    {
-        return new HolidaysData(holidays, workingWeekends, true);
-    }
 }
