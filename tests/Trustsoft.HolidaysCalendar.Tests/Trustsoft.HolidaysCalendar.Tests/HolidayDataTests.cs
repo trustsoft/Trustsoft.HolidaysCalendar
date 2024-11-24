@@ -11,6 +11,7 @@ namespace Trustsoft.HolidaysCalendar.Tests;
 public class HolidayDataTests
 {
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest1()
     {
         var holidaysData = HolidaysDataFactory.Valid(new List<DateOnly>(), new List<DateOnly>());
@@ -22,6 +23,7 @@ public class HolidayDataTests
     }
 
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest2()
     {
         var holidaysData = HolidaysDataFactory.Valid(null!, new List<DateOnly>());
@@ -33,6 +35,7 @@ public class HolidayDataTests
     }
 
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest3()
     {
         var holidaysData = HolidaysDataFactory.Valid(new List<DateOnly>());
@@ -44,6 +47,7 @@ public class HolidayDataTests
     }
 
     [TestMethod]
+    [TestCategory("Creation")]
     public void CreationTest4()
     {
         var holidaysData = HolidaysDataFactory.Invalid();
