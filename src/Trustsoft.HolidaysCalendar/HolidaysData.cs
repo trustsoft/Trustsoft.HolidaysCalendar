@@ -15,9 +15,9 @@ using Trustsoft.HolidaysCalendar.Contracts;
 internal class HolidaysData(IReadOnlyList<DateOnly> holidays, IReadOnlyList<DateOnly> workingWeekends, bool isValid)
         : IHolidaysData
 {
-    public IReadOnlyList<DateOnly> Holidays { get; } = holidays ?? [];
+    public IReadOnlyList<DateOnly> Holidays { get; } = holidays;
 
-    public IReadOnlyList<DateOnly> WorkingWeekends { get; } = workingWeekends ?? [];
+    public IReadOnlyList<DateOnly> WorkingWeekends { get; } = workingWeekends;
 
     public bool IsValid { get; } = isValid;
 }

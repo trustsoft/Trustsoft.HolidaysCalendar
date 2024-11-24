@@ -12,6 +12,4 @@ namespace Trustsoft.HolidaysCalendar.Contracts;
 ///   Extends the <see cref="IHolidaysDataProvider" />.
 /// </summary>
 /// <seealso cref="IHolidaysDataProvider" />
-public interface IFallbackDataProvider : IHolidaysDataProvider
-{
-}
+public interface IFallbackDataProvider : IHolidaysDataProvider;
