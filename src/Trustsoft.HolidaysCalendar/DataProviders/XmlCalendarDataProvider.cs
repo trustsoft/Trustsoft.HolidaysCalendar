@@ -8,8 +8,9 @@
 namespace Trustsoft.HolidaysCalendar.DataProviders;
 
 using System;
-using System.Diagnostics;
+using System.Net.Http;
 using System.Xml.Linq;
+
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
@@ -41,14 +42,9 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             var day = GetFirstAttributeValue(element, "d");
             var type = GetFirstAttributeValue(element, "t");
             date = default;
-            dayType = 0;
+            dayType = default;
 
-            if (string.IsNullOrEmpty(day) || string.IsNullOrEmpty(day))
-            {
-                return false;
-            }
-
-            if (!int.TryParse(type, out dayType))
+            if (string.IsNullOrEmpty(day) || string.IsNullOrEmpty(type) || !int.TryParse(type, out dayType))
             {
                 return false;
             }
@@ -56,34 +52,21 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             return DateOnly.TryParseExact($"{year}.{day}", "yyyy.MM.dd", out date);
         }
 
-        XDocument LoadXDocument(string uri)
-        {
-            using var httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(60);
-            string response = httpClient.GetStringAsync(uri).Result;
-            using var reader = new StringReader(response);
-            XDocument xDocument = XDocument.Load(reader);
-            return xDocument;
-        }
-
         var requestUri = string.Format(BaseUrl, year);
-        var urlExists = IsUrlExists(requestUri).Result;
 
-        if (!urlExists)
+        if (!LoadDataFromUrl(requestUri, out XDocument? doc) || doc is null)
         {
-            Debug.WriteLine($"XmlCalendarDataProvider: NO DATA FOR YEAR {year}");
             return HolidaysDataFactory.Invalid();
         }
 
-        XDocument doc = LoadXDocument(requestUri);
         var days = doc.Descendants("day");
 
         var holidays = new List<DateOnly>();
         var workingWeekends = new List<DateOnly>();
 
-        foreach (var element in days)
+        foreach (XElement element in days)
         {
-            if (ParseDateAndType(element, out var date, out var dayType))
+            if (ParseDateAndType(element, out DateOnly date, out var dayType))
             {
                 switch (dayType)
                 {
@@ -91,13 +74,16 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
                     case 1:
                         holidays.Add(date);
                         break;
+
                     // if working day, pre-holiday
                     case 2:
                         if (date.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday)
                         {
                             workingWeekends.Add(date);
                         }
+
                         break;
+
                     // if working weekend
                     case 3:
                         workingWeekends.Add(date);
@@ -109,7 +95,28 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
         return HolidaysDataFactory.Valid(holidays, workingWeekends);
     }
 
-    private static async Task<bool> IsUrlExists(string url)
+    private static bool LoadDataFromUrl(string requestUri, out XDocument? doc)
+    {
+        doc = null;
+
+        if (!IsUrlExists(requestUri))
+        {
+            return false;
+        }
+
+        if (!GetStringFromUrl(requestUri, out string response))
+        {
+            return false;
+        }
+
+        using var reader = new StringReader(response);
+
+        doc = XDocument.Load(reader);
+
+        return true;
+    }
+
+    private static bool IsUrlExists(string url)
     {
         try
         {
@@ -117,13 +124,31 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
 
             //Do only Head request to avoid download full content
             var requestMessage = new HttpRequestMessage(HttpMethod.Head, url);
-            var response = await client.SendAsync(requestMessage);
+            HttpResponseMessage response = client.SendAsync(requestMessage).Result;
 
-            // if we have a SuccessStatusCode so url is available 
+            // if we have a SuccessStatusCode so url exists and available 
             return response.IsSuccessStatusCode;
         }
         catch
         {
+            return false;
+        }
+    }
+
+    private static bool GetStringFromUrl(string requestUri, out string response)
+    {
+        try
+        {
+            using var client = new HttpClient();
+
+            client.Timeout = TimeSpan.FromSeconds(60);
+            response = client.GetStringAsync(requestUri).Result;
+
+            return true;
+        }
+        catch
+        {
+            response = string.Empty;
             return false;
         }
     }
