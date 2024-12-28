@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsageSample.ConsoleApp", ".
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2E9A95AC-F201-437F-B922-7644B9715CEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trustsoft.HolidaysCalendar.Tests", "..\tests\Trustsoft.HolidaysCalendar.Tests\Trustsoft.HolidaysCalendar.Tests\Trustsoft.HolidaysCalendar.Tests.csproj", "{2437EDC1-0D86-4ECD-BBCE-F56113788139}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trustsoft.HolidaysCalendar.Tests", "..\tests\Trustsoft.HolidaysCalendar.Tests\Trustsoft.HolidaysCalendar.Tests.csproj", "{2437EDC1-0D86-4ECD-BBCE-F56113788139}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
