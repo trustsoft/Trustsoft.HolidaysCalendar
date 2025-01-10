@@ -89,7 +89,18 @@ public class HolidaysCalendar : IHolidaysCalendar
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
     /// <returns> The date adjusted for holidays and weekends. </returns>
+    [Obsolete("AdjustForHolidaysAndWeekends is deprecated, please use AdjustToWorkingDay instead.")]
     public DateOnly AdjustForHolidaysAndWeekends(DateOnly date)
+    {
+        return this.AdjustToWorkingDay(date);
+    }
+
+    /// <summary>
+    ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
+    /// </summary>
+    /// <param name="date"> The date to adjust for. </param>
+    /// <returns> The date adjusted for holidays and weekends. </returns>
+    public DateOnly AdjustToWorkingDay(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
 

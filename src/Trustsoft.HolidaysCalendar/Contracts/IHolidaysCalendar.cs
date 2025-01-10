@@ -17,7 +17,15 @@ public interface IHolidaysCalendar
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
     /// <returns> The <see cref="DateOnly"> date </see> adjusted for holidays and weekends. </returns>
+    [Obsolete("AdjustForHolidaysAndWeekends is deprecated, please use AdjustToWorkingDay, with same signature, instead.")]
     DateOnly AdjustForHolidaysAndWeekends(DateOnly date);
+
+    /// <summary>
+    ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
+    /// </summary>
+    /// <param name="date"> The date to adjust for. </param>
+    /// <returns> The date adjusted for holidays and weekends. </returns>
+    DateOnly AdjustToWorkingDay(DateOnly date);
 
     /// <summary>
     ///   Gets the next working day after specified <paramref name="date" />.
