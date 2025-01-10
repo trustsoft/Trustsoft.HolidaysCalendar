@@ -16,7 +16,7 @@ public interface IHolidaysCalendar
     ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
-    /// <returns> The date adjusted for holidays and weekends. </returns>
+    /// <returns> The <see cref="DateOnly"> date </see> adjusted for holidays and weekends. </returns>
     DateOnly AdjustForHolidaysAndWeekends(DateOnly date);
 
     /// <summary>
@@ -30,21 +30,21 @@ public interface IHolidaysCalendar
     ///   Determines whether the specified <paramref name="date" /> is a holiday.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is holiday; otherwise, <c> false </c>. </returns>
+    /// <returns> <see langword="true" /> if the specified date is holiday; otherwise, <see langword="false" />. </returns>
     bool IsHoliday(DateOnly date);
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is a weekend,
-    ///   taking into account working weekends.
+    ///   Determines whether the specified <paramref name="date" />,
+    ///   is a weekend taking into account working weekends.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is a weekend; otherwise, <c> false </c>. </returns>
+    /// <returns> <see langword="true" /> if the specified date is a weekend; otherwise, <see langword="false" />. </returns>
     bool IsWeekend(DateOnly date);
 
     /// <summary>
     ///   Determines whether the specified <paramref name="date" /> is working weekend.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is working weekend; otherwise, <c> false </c>. </returns>
+    /// <returns> <see langword="true" /> if the specified date is working weekend; otherwise, <see langword="false" />. </returns>
     bool IsWorkingWeekend(DateOnly date);
 }

@@ -12,7 +12,6 @@ using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
 ///   Provides a set of functions to work with holiday calendar.
-///   Implements the <see cref="IHolidaysCalendar" />
 /// </summary>
 /// <seealso cref="IHolidaysCalendar" />
 public class HolidaysCalendar : IHolidaysCalendar
@@ -124,7 +123,7 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Determines whether the specified <paramref name="date" /> is holiday.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is holiday; otherwise, <c> false </c>. </returns>
+    /// <returns> <see langword="true" /> if the specified date is holiday; otherwise, <see langword="false" />. </returns>
     public bool IsHoliday(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -136,7 +135,7 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Determines whether the specified <paramref name="date" /> is working weekend.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is working weekend; otherwise, <c> false </c>. </returns>
+    /// <returns> <see langword="true" /> if the specified date is working weekend; otherwise, <see langword="false" />. </returns>
     public bool IsWorkingWeekend(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -145,11 +144,11 @@ public class HolidaysCalendar : IHolidaysCalendar
     }
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is a weekend,
-    ///   taking into account working weekends.
+    ///   Determines whether the specified <paramref name="date" />
+    ///   is a weekend, taking into account working weekends.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is a weekend; otherwise, <c> false </c>. </returns>
+    /// <returns> <see langword="true" /> if the specified date is a weekend; otherwise, <see langword="false" />. </returns>
     public bool IsWeekend(DateOnly date)
     {
         return date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday &&
