@@ -42,7 +42,13 @@ bool isHoliday = calendar.IsHoliday(date);
 
 bool isWeekend = calendar.IsWeekend(date);
 
+bool isWeekend = calendar.IsWorkingDay(date);
+
 bool IsWorWeek = calendar.IsWorkingWeekend(date);
+
+DateOnly nextworkingDay = calendar.GetNextWorkingDay(date);
+
+DateOnly adjustedWorkingDay = calendar.AdjustToWorkingDay(date);
 ```
 
 #### Contracts: ####

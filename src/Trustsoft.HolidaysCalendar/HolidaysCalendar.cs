@@ -166,6 +166,21 @@ public class HolidaysCalendar : IHolidaysCalendar
                !this.IsWorkingWeekend(date);
     }
 
+    /// <summary>
+    ///   Determines whether the specified <paramref name="date" /> is a working day.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns> <see langword="true" /> if the specified date is a working day; otherwise, <see langword="false" />. </returns>
+    public bool IsWorkingDay(DateOnly date)
+    {
+        if (this.IsWorkingWeekend(date))
+        {
+            return true;
+        }
+
+        return !(this.IsWeekend(date) || this.IsHoliday(date));
+    }
+
     private class HolidaysDataCache
     {
         private readonly HashSet<DateOnly> holidays = [];

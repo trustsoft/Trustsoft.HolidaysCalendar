@@ -50,6 +50,16 @@ internal static class Program
         }
 
         Console.WriteLine();
+        Console.WriteLine("HolidaysCalendar.IsWorkingDay(DateOnly date) usage");
+        Console.WriteLine();
+        number = 0;
+        foreach (var date in dates)
+        {
+            var result = calendar.IsWorkingDay(date);
+            Console.WriteLine($"#{++number:00}: {date:dd.MM.yyyy} is working day = {result}");
+        }
+
+        Console.WriteLine();
         Console.WriteLine("HolidaysCalendar.IsWorkingWeekend(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
@@ -75,7 +85,7 @@ internal static class Program
         number = 0;
         foreach (var date in dates)
         {
-            var result = calendar.AdjustForHolidaysAndWeekends(date);
+            var result = calendar.AdjustToWorkingDay(date);
             Console.WriteLine($"#{++number:00}: {date:dd.MM.yyyy} adjusted for holidays day is = {result}");
         }
 
