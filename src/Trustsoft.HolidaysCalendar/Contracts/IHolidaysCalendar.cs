@@ -48,7 +48,7 @@ public interface IHolidaysCalendar
     /// <param name="date"> The date to check for. </param>
     /// <returns> <see langword="true" /> if the specified date is a weekend; otherwise, <see langword="false" />. </returns>
     bool IsWeekend(DateOnly date);
-    
+
     /// <summary>
     ///   Determines whether the specified <paramref name="date" /> is a working day.
     /// </summary>

@@ -11,7 +11,7 @@ namespace Trustsoft.HolidaysCalendar.Contracts;
 ///   Describes a result of fetching data by <see cref="IHolidaysDataProvider.GetHolidaysData" />.
 /// </summary>
 /// <remarks>
-///   For developers:
+///   For custom data provider developers:
 ///   Use <see cref="HolidaysDataFactory" /> to create objects that implement this interface.
 /// </remarks>
 public interface IHolidaysData

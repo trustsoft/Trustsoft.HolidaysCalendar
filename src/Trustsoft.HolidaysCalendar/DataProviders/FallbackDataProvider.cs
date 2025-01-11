@@ -9,6 +9,7 @@ namespace Trustsoft.HolidaysCalendar.DataProviders;
 
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
