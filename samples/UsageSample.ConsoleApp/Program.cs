@@ -22,8 +22,8 @@ internal static class Program
         Console.WriteLine("// HolidaysCalendar Sample Usage //");
         Console.WriteLine("//-------------------------------//");
 
-        var dataProvider = new XmlCalendarDataProvider();
-        var fallbackDataProvider = new FallbackDataProvider();
+        var dataProvider = new RussianHolidaysDataProvider();
+        var fallbackDataProvider = new RussianHolidaysFallbackDataProvider();
         IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
 
         Console.WriteLine();

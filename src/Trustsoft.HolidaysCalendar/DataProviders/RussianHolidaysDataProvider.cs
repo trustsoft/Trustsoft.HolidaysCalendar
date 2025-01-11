@@ -19,7 +19,7 @@ using Trustsoft.HolidaysCalendar.Contracts;
 /// </summary>
 /// <remarks> This provider fetches data from 'http://xmlcalendar.ru'. </remarks>
 /// <seealso cref="IHolidaysDataProvider" />
-public class XmlCalendarDataProvider : IHolidaysDataProvider
+public class RussianHolidaysDataProvider : IHolidaysDataProvider
 {
     private const string BaseUrl = "http://xmlcalendar.ru/data/ru/{0}/calendar.xml";
 
