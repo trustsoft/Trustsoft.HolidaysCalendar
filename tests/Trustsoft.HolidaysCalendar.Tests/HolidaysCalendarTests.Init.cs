@@ -21,9 +21,7 @@ public partial class HolidaysCalendarTests
     [ClassInitialize]
     public static void ClassInit(TestContext context)
     {
-        var dataProvider = new RussianHolidaysDataProvider();
-        var fallbackDataProvider = new RussianHolidaysFallbackDataProvider();
-        var holidaysCalendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
+        var holidaysCalendar = new RussianHolidaysCalendar();
         calendar = holidaysCalendar;
 
         // add known holiday data

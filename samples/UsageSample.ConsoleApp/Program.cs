@@ -9,7 +9,6 @@ namespace UsageSample.ConsoleApp;
 
 using Trustsoft.HolidaysCalendar;
 using Trustsoft.HolidaysCalendar.Contracts;
-using Trustsoft.HolidaysCalendar.DataProviders;
 
 internal static class Program
 {
@@ -18,13 +17,11 @@ internal static class Program
 
     static void Main()
     {
-        Console.WriteLine("//-------------------------------//");
-        Console.WriteLine("// HolidaysCalendar Sample Usage //");
-        Console.WriteLine("//-------------------------------//");
+        Console.WriteLine("//--------------------------------------//");
+        Console.WriteLine("// RussianHolidaysCalendar Sample Usage //");
+        Console.WriteLine("//--------------------------------------//");
 
-        var dataProvider = new RussianHolidaysDataProvider();
-        var fallbackDataProvider = new RussianHolidaysFallbackDataProvider();
-        IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
+        IHolidaysCalendar calendar = new RussianHolidaysCalendar();
 
         Console.WriteLine();
         Console.WriteLine("HolidaysCalendar.IsHoliday(DateOnly date) usage");
