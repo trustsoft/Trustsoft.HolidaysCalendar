@@ -14,8 +14,7 @@ using System.Xml.Linq;
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Russian holidays data provider for <see cref="IHolidaysCalendar" /> implementation.
-///   Implements the <see cref="IHolidaysDataProvider" />.
+///   Russian holidays data provider for <see cref="HolidaysCalendar" />.
 /// </summary>
 /// <remarks> This provider fetches data from 'http://xmlcalendar.ru'. </remarks>
 /// <seealso cref="IHolidaysDataProvider" />
@@ -34,8 +33,8 @@ public class RussianHolidaysDataProvider : IHolidaysDataProvider
     /// </summary>
     /// <param name="year"> The year to get holidays data for. </param>
     /// <returns>
-    ///   The <see cref="IHolidaysData" /> object that contains a result of
-    ///   fetching holidays data for specified <paramref name="year"/>.
+    ///   The <see cref="IHolidaysData" /> object that contains
+    ///   holidays data for specified <paramref name="year"/>.
     /// </returns>
     public IHolidaysData GetHolidaysData(int year)
     {

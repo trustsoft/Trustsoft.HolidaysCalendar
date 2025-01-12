@@ -22,11 +22,11 @@ public class HolidaysCalendar : IHolidaysCalendar
     private readonly HolidaysDataCache fallbackData = new HolidaysDataCache();
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref="HolidaysCalendar" /> class.
+    ///   Initializes a new instance of the <see cref="HolidaysCalendar" /> class with specified data providers.
     /// </summary>
     /// <param name="primaryProvider"> The primary data provider. </param>
     /// <param name="fallbackProvider">
-    ///   The fallback data provider if <paramref name="primaryProvider" /> is unavailable.
+    ///   The fallback data provider, used if <paramref name="primaryProvider" /> fails to provide data.
     /// </param>
     /// <exception cref="System.ArgumentNullException"> primaryProvider </exception>
     /// <exception cref="System.ArgumentNullException"> fallbackProvider </exception>
@@ -88,7 +88,7 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
-    /// <returns> The date adjusted for holidays and weekends. </returns>
+    /// <returns> The specified <paramref name="date" /> if it`s a working day or next working day otherwise. </returns>
     [Obsolete("AdjustForHolidaysAndWeekends is deprecated, please use AdjustToWorkingDay instead.")]
     public DateOnly AdjustForHolidaysAndWeekends(DateOnly date)
     {
@@ -99,7 +99,7 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
-    /// <returns> The date adjusted for holidays and weekends. </returns>
+    /// <returns> The specified <paramref name="date" /> if it`s a working day or next working day otherwise. </returns>
     public DateOnly AdjustToWorkingDay(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);
@@ -146,7 +146,7 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Determines whether the specified <paramref name="date" /> is working weekend.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <see langword="true" /> if the specified date is working weekend; otherwise, <see langword="false" />. </returns>
+    /// <returns> <see langword="true" /> if the specified date is a working weekend; otherwise, <see langword="false" />. </returns>
     public bool IsWorkingWeekend(DateOnly date)
     {
         this.EnsureDataLoaded(date.Year);

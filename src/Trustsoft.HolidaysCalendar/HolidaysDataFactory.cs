@@ -14,13 +14,14 @@ using Trustsoft.HolidaysCalendar.Contracts;
 /// <summary>
 ///   Provides methods to create object that implements <see cref="IHolidaysData" />.
 /// </summary>
+/// <remarks> Useful while implementing <see cref="IHolidaysDataProvider.GetHolidaysData"/> </remarks>
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class HolidaysDataFactory
 {
     /// <summary>
     ///   Creates an implementation of <see cref="IHolidaysData" /> in an invalid state.
     /// </summary>
-    /// <returns> The corresponding implementation of <see cref="IHolidaysData" />. </returns>
+    /// <returns> The implementation of <see cref="IHolidaysData" /> in corresponding state. </returns>
     public static IHolidaysData Invalid()
     {
         return new HolidaysData(holidays: [],
@@ -31,7 +32,7 @@ public static class HolidaysDataFactory
     /// <summary>
     ///   Creates an implementation of <see cref="IHolidaysData" /> with provided data and in a valid state.
     /// </summary>
-    /// <returns> The corresponding implementation of <see cref="IHolidaysData" />. </returns>
+    /// <returns> The implementation of <see cref="IHolidaysData" /> in corresponding state. </returns>
     public static IHolidaysData Valid(IReadOnlyList<DateOnly>? holidays)
     {
         return Valid(holidays: holidays ?? [],
@@ -41,7 +42,7 @@ public static class HolidaysDataFactory
     /// <summary>
     ///   Creates an implementation of <see cref="IHolidaysData" /> with provided data and in a valid state.
     /// </summary>
-    /// <returns> The corresponding implementation of <see cref="IHolidaysData" />. </returns>
+    /// <returns> The implementation of <see cref="IHolidaysData" /> in corresponding state. </returns>
     public static IHolidaysData Valid(IReadOnlyList<DateOnly>? holidays, IReadOnlyList<DateOnly>? workingWeekends)
     {
         return new HolidaysData(holidays: holidays ?? [],

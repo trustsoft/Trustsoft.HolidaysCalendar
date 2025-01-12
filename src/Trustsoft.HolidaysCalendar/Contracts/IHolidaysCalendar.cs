@@ -16,7 +16,7 @@ public interface IHolidaysCalendar
     ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
-    /// <returns> The <see cref="DateOnly"> date </see> adjusted for holidays and weekends. </returns>
+    /// <returns> The specified <paramref name="date" /> if it`s a working day or next working day otherwise. </returns>
     [Obsolete("AdjustForHolidaysAndWeekends is deprecated, please use AdjustToWorkingDay, with same signature, instead.")]
     DateOnly AdjustForHolidaysAndWeekends(DateOnly date);
 
@@ -24,7 +24,7 @@ public interface IHolidaysCalendar
     ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
-    /// <returns> The date adjusted for holidays and weekends. </returns>
+    /// <returns> The specified <paramref name="date" /> if it`s a working day; otherwise, next working day. </returns>
     DateOnly AdjustToWorkingDay(DateOnly date);
 
     /// <summary>
@@ -42,7 +42,7 @@ public interface IHolidaysCalendar
     bool IsHoliday(DateOnly date);
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" />,
+    ///   Determines whether the specified <paramref name="date" />
     ///   is a weekend taking into account working weekends.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
@@ -50,7 +50,8 @@ public interface IHolidaysCalendar
     bool IsWeekend(DateOnly date);
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is a working day.
+    ///   Determines whether the specified <paramref name="date" />
+    ///   is a working day taking into account working weekends and holidays.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
     /// <returns> <see langword="true" /> if the specified date is a working day; otherwise, <see langword="false" />. </returns>
