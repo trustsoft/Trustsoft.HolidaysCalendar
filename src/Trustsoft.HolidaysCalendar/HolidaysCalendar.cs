@@ -26,15 +26,15 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Initializes a new instance of the <see cref="HolidaysCalendar" /> class with specified data providers.
     /// </summary>
     /// <param name="primaryProvider"> The primary data provider. </param>
-    /// <param name="fallbackProvider">
+    /// <param name="fallbackHolidaysProvider">
     ///   The fallback data provider, used if <paramref name="primaryProvider" /> fails to provide data.
     /// </param>
     /// <exception cref="System.ArgumentNullException"> primaryProvider </exception>
     /// <exception cref="System.ArgumentNullException"> fallbackProvider </exception>
-    public HolidaysCalendar(IHolidaysDataProvider primaryProvider, IFallbackDataProvider fallbackProvider)
+    public HolidaysCalendar(IHolidaysDataProvider primaryProvider, IFallbackHolidaysDataProvider fallbackHolidaysProvider)
     {
         this.primaryDataProvider = primaryProvider ?? throw new ArgumentNullException(nameof(primaryProvider));
-        this.fallbackDataProvider = fallbackProvider ?? throw new ArgumentNullException(nameof(fallbackProvider));
+        this.fallbackDataProvider = fallbackHolidaysProvider ?? throw new ArgumentNullException(nameof(fallbackHolidaysProvider));
     }
 
     private void EnsureDataLoaded(int year)

@@ -16,8 +16,8 @@ using Trustsoft.HolidaysCalendar.Contracts;
 ///   Russian holidays fallback data provider for <see cref="IHolidaysCalendar" /> implementation.
 /// </summary>
 /// <remarks> Generated data contains dates of all major Russian holidays. </remarks>
-/// <seealso cref="IFallbackDataProvider" />
-public class RussianHolidaysFallbackDataProvider : IFallbackDataProvider
+/// <seealso cref="IFallbackHolidaysDataProvider" />
+public class RussianHolidaysFallbackDataProvider : IFallbackHolidaysDataProvider
 {
     private readonly IReadOnlyList<HolidayData> holidayDescriptions =
     [
