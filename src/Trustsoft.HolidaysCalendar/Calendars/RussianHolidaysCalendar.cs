@@ -23,7 +23,8 @@ public class RussianHolidaysCalendar : HolidaysCalendar
     ///   used if primary data provider fails to provide data.
     /// </summary>
     public RussianHolidaysCalendar() :
-            base(new RussianHolidaysDataProvider(), new RussianHolidaysFallbackDataProvider())
+            base(new RussianHolidaysDataProvider(),
+                 new RussianHolidaysFallbackDataProvider())
     {
     }
 }

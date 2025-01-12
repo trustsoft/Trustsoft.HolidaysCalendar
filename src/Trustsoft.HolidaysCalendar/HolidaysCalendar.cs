@@ -8,6 +8,7 @@
 namespace Trustsoft.HolidaysCalendar;
 
 using System.Diagnostics;
+
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
@@ -16,10 +17,10 @@ using Trustsoft.HolidaysCalendar.Contracts;
 /// <seealso cref="IHolidaysCalendar" />
 public class HolidaysCalendar : IHolidaysCalendar
 {
-    private readonly IHolidaysDataProvider primaryDataProvider;
+    private readonly HolidaysDataCache fallbackData = new HolidaysDataCache();
     private readonly IHolidaysDataProvider fallbackDataProvider;
     private readonly HolidaysDataCache primaryData = new HolidaysDataCache();
-    private readonly HolidaysDataCache fallbackData = new HolidaysDataCache();
+    private readonly IHolidaysDataProvider primaryDataProvider;
 
     /// <summary>
     ///   Initializes a new instance of the <see cref="HolidaysCalendar" /> class with specified data providers.
@@ -40,23 +41,20 @@ public class HolidaysCalendar : IHolidaysCalendar
     {
         // Primary data provider is a preferred one.
         // If primary cache and fallback cache both has data for specified year
-        // we must remove that year from the list of years for which data has been already loaded
-        // Если основной и резервный кэши оба содержат данные на указанный год
-        // нужно удалить данные на этот год из резервного кэша.
+        // we must remove that year from the list of years for which data has been already loaded.
         if (this.primaryData.ContainsDataFor(year) && this.fallbackData.ContainsDataFor(year))
         {
             this.fallbackData.RemoveDataFor(year);
             return;
         }
 
-        // Данные за указанный год уже загружены, используя основной провайдер данных?
         if (this.primaryData.ContainsDataFor(year))
         {
             return;
         }
 
-        // Данные за указанный год отсутствуют загружаем их, используя основной провайдер данных
         Debug.WriteLine($"LOADED DATA FOR YEAR {year}");
+
         if (this.LoadDataFromMainProvider(year))
         {
             return;
@@ -68,20 +66,20 @@ public class HolidaysCalendar : IHolidaysCalendar
         }
     }
 
-    private bool LoadDataFromMainProvider(int year)
-    {
-        IHolidaysData data = this.primaryDataProvider.GetHolidaysData(year);
-
-        // update primary data if exists
-        return this.primaryData.UpdateData(data, year);
-    }
-
     private bool LoadDataFromFallbackProvider(int year)
     {
-        IHolidaysData data = this.fallbackDataProvider.GetHolidaysData(year);
+        var data = this.fallbackDataProvider.GetHolidaysData(year);
 
         // update fallback data if exists
         return this.fallbackData.UpdateData(data, year);
+    }
+
+    private bool LoadDataFromMainProvider(int year)
+    {
+        var data = this.primaryDataProvider.GetHolidaysData(year);
+
+        // update primary data if exists
+        return this.primaryData.UpdateData(data, year);
     }
 
     /// <summary>
@@ -143,18 +141,6 @@ public class HolidaysCalendar : IHolidaysCalendar
     }
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is working weekend.
-    /// </summary>
-    /// <param name="date"> The date to check for. </param>
-    /// <returns> <see langword="true" /> if the specified date is a working weekend; otherwise, <see langword="false" />. </returns>
-    public bool IsWorkingWeekend(DateOnly date)
-    {
-        this.EnsureDataLoaded(date.Year);
-
-        return this.primaryData.IsWorkingWeekend(date) || this.fallbackData.IsWorkingWeekend(date);
-    }
-
-    /// <summary>
     ///   Determines whether the specified <paramref name="date" />
     ///   is a weekend, taking into account working weekends.
     /// </summary>
@@ -170,7 +156,10 @@ public class HolidaysCalendar : IHolidaysCalendar
     ///   Determines whether the specified <paramref name="date" /> is a working day.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <see langword="true" /> if the specified date is a working day; otherwise, <see langword="false" />. </returns>
+    /// <returns>
+    ///   <see langword="true" /> if the specified date is a working day; otherwise,
+    ///   <see langword="false" />.
+    /// </returns>
     public bool IsWorkingDay(DateOnly date)
     {
         if (this.IsWorkingWeekend(date))
@@ -181,11 +170,48 @@ public class HolidaysCalendar : IHolidaysCalendar
         return !(this.IsWeekend(date) || this.IsHoliday(date));
     }
 
+    /// <summary>
+    ///   Determines whether the specified <paramref name="date" /> is working weekend.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns>
+    ///   <see langword="true" /> if the specified date is a working weekend; otherwise,
+    ///   <see langword="false" />.
+    /// </returns>
+    public bool IsWorkingWeekend(DateOnly date)
+    {
+        this.EnsureDataLoaded(date.Year);
+
+        return this.primaryData.IsWorkingWeekend(date) || this.fallbackData.IsWorkingWeekend(date);
+    }
+
     private class HolidaysDataCache
     {
         private readonly HashSet<DateOnly> holidays = [];
         private readonly HashSet<DateOnly> workingWeekends = [];
         private readonly HashSet<int> years = [];
+
+        public bool ContainsDataFor(int year)
+        {
+            return this.years.Contains(year);
+        }
+
+        public bool IsHoliday(DateOnly date)
+        {
+            return this.holidays.Contains(date);
+        }
+
+        public bool IsWorkingWeekend(DateOnly date)
+        {
+            return this.workingWeekends.Contains(date);
+        }
+
+        public void RemoveDataFor(int year)
+        {
+            this.holidays.RemoveWhere(day => day.Year == year);
+            this.workingWeekends.RemoveWhere(day => day.Year == year);
+            this.years.Remove(year);
+        }
 
         public bool UpdateData(IHolidaysData holidaysData, int year)
         {
@@ -194,7 +220,6 @@ public class HolidaysCalendar : IHolidaysCalendar
                 return false;
             }
 
-            // we have data
             foreach (var date in holidaysData.Holidays)
             {
                 this.holidays.Add(date);
@@ -208,28 +233,6 @@ public class HolidaysCalendar : IHolidaysCalendar
             this.years.Add(year);
 
             return true;
-        }
-
-        public bool ContainsDataFor(int year)
-        {
-            return this.years.Contains(year);
-        }
-
-        public void RemoveDataFor(int year)
-        {
-            this.holidays.RemoveWhere(day => day.Year == year);
-            this.workingWeekends.RemoveWhere(day => day.Year == year);
-            this.years.Remove(year);
-        }
-
-        public bool IsHoliday(DateOnly date)
-        {
-            return this.holidays.Contains(date);
-        }
-
-        public bool IsWorkingWeekend(DateOnly date)
-        {
-            return this.workingWeekends.Contains(date);
         }
     }
 }

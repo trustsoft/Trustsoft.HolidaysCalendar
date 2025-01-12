@@ -41,6 +41,23 @@ public class RussianHolidaysFallbackDataProvider : IFallbackDataProvider
 
     private readonly Dictionary<int, List<DateOnly>> holidaysCache = [];
 
+    private void GenerateDataForYear(int year)
+    {
+        var list = from holiday in this.holidayDescriptions
+                   from date in holiday.GetDatesForYear(year)
+                   //where date.DayOfWeek is not (DayOfWeek.Saturday or DayOfWeek.Sunday)
+                   select date;
+
+        ref var @default = ref CollectionsMarshal.GetValueRefOrAddDefault(this.holidaysCache, year, out var res);
+
+        if (!res)
+        {
+            @default = new List<DateOnly>();
+        }
+
+        @default?.AddRange(list);
+    }
+
     /// <summary>
     ///   Gets the generated holidays data for specified year.
     /// </summary>
@@ -60,23 +77,6 @@ public class RussianHolidaysFallbackDataProvider : IFallbackDataProvider
 
         var holidays = this.holidaysCache[year];
         return HolidaysDataFactory.Valid(holidays);
-    }
-
-    private void GenerateDataForYear(int year)
-    {
-        var list = from holiday in this.holidayDescriptions
-                   from date in holiday.GetDatesForYear(year)
-                   //where date.DayOfWeek is not (DayOfWeek.Saturday or DayOfWeek.Sunday)
-                   select date;
-
-        ref var @default = ref CollectionsMarshal.GetValueRefOrAddDefault(this.holidaysCache, year, out var res);
-
-        if (!res)
-        {
-            @default = new List<DateOnly>();
-        }
-
-        @default?.AddRange(list);
     }
 
     private record HolidayData(int Month, List<int> Days)
