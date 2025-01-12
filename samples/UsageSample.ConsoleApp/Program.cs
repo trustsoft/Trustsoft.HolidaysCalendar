@@ -24,7 +24,7 @@ internal static class Program
         IHolidaysCalendar calendar = new RussianHolidaysCalendar();
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsHoliday(DateOnly date) usage");
+        Console.WriteLine("IsHoliday(DateOnly date) usage");
         Console.WriteLine();
         var number = 0;
 
@@ -37,7 +37,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsWeekend(DateOnly date) usage");
+        Console.WriteLine("IsWeekend(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -47,7 +47,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsWorkingDay(DateOnly date) usage");
+        Console.WriteLine("IsWorkingDay(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -57,7 +57,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsWorkingWeekend(DateOnly date) usage");
+        Console.WriteLine("IsWorkingWeekend(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -67,7 +67,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.GetNextWorkingDay(DateOnly date) usage");
+        Console.WriteLine("GetNextWorkingDay(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -77,7 +77,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.AdjustForHolidaysAndWeekends(DateOnly date) usage");
+        Console.WriteLine("AdjustToWorkingDay(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)

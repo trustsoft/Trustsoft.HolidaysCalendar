@@ -7,8 +7,6 @@
 
 namespace Trustsoft.HolidaysCalendar.DataProviders;
 
-using System;
-using System.Net.Http;
 using System.Xml.Linq;
 
 using Trustsoft.HolidaysCalendar.Contracts;
@@ -24,9 +22,9 @@ public class RussianHolidaysDataProvider : IHolidaysDataProvider
 
     private const string DayAttributeName = "d";
 
-    private const string TypeAttributeName = "t";
-
     private const string DayXElementName = "day";
+
+    private const string TypeAttributeName = "t";
 
     /// <summary>
     ///   Gets the holidays data for specified year.
@@ -34,7 +32,7 @@ public class RussianHolidaysDataProvider : IHolidaysDataProvider
     /// <param name="year"> The year to get holidays data for. </param>
     /// <returns>
     ///   The <see cref="IHolidaysData" /> object that contains
-    ///   holidays data for specified <paramref name="year"/>.
+    ///   holidays data for specified <paramref name="year" />.
     /// </returns>
     public IHolidaysData GetHolidaysData(int year)
     {
@@ -152,7 +150,7 @@ internal static class Extensions
             return false;
         }
 
-        if (!requestUri.GetStringFromUrl(out string response))
+        if (!requestUri.GetStringFromUrl(out var response))
         {
             return false;
         }

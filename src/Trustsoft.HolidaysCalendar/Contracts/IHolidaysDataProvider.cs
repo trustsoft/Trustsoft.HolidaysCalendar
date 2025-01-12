@@ -19,7 +19,7 @@ public interface IHolidaysDataProvider
     /// <param name="year"> The year to get holidays data for. </param>
     /// <returns>
     ///   The <see cref="IHolidaysData" /> object that contains
-    ///   holidays data for specified <paramref name="year"/>.
+    ///   holidays data for specified <paramref name="year" />.
     /// </returns>
     IHolidaysData GetHolidaysData(int year);
 }

@@ -80,9 +80,7 @@ public partial class HolidaysCalendarTests
         var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
         var expected = DateOnly.ParseExact(expectedString, "yyyy.MM.dd");
 
-        var actual = calendar.AdjustForHolidaysAndWeekends(date);
+        var actual = calendar.AdjustToWorkingDay(date);
         Assert.AreEqual(actual, expected);
-        
-        Assert.AreEqual(expected, calendar.AdjustToWorkingDay(date));
     }
 }

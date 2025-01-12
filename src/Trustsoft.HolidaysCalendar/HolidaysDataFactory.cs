@@ -14,7 +14,7 @@ using Trustsoft.HolidaysCalendar.Contracts;
 /// <summary>
 ///   Provides methods to create object that implements <see cref="IHolidaysData" />.
 /// </summary>
-/// <remarks> Useful while implementing <see cref="IHolidaysDataProvider.GetHolidaysData"/> </remarks>
+/// <remarks> Useful while implementing <see cref="IHolidaysDataProvider.GetHolidaysData" /> </remarks>
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class HolidaysDataFactory
 {

@@ -16,24 +16,30 @@ Work with holidays calendar with ease.
 
 Library for working with the holiday calendar.
 
-Data providers:<br>
-Out of the box, only Russian holiday calendar at [http://xmlcalendar.ru](http://xmlcalendar.ru) is supported.<br>
-You can develop your own data provider.
+Out of the box, only Russian holiday calendar at [http://xmlcalendar.ru](http://xmlcalendar.ru) is supported.
+
+You can develop your own data providers, implementing `IHolidaysDataProvider` and `IFallbackDataProvider` contracts.
 
 ## Getting Started
 Install the [NuGet package](http://www.nuget.org/packages/Trustsoft.HolidaysCalendar).
 
 ## Usage:
+Work with Russian holidays
+
 ```csharp
+//Creating calendar of Russian Holidays:
+IHolidaysCalendar calendar = new RussianHolidaysCalendar(dataProvider, fallbackDataProvider);
+
+// or you can control calendar creation
 // create primary data provider
-IHolidaysDataProvider dataProvider = new XmlCalendarDataProvider();
+IHolidaysDataProvider dataProvider = new RussianHolidaysDataProvider();
 
 // create fallback data provider
-IFallbackDataProvider fallbackDataProvider = new FallbackDataProvider();
+IFallbackDataProvider fallbackDataProvider = new RussianHolidaysFallbackDataProvider();
 
 // create holiday calendar with data providers
 IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
-    
+
 // day to check
 DateOnly date = DateOnly.ParseExact("2024.10.12", "yyyy.MM.dd");
 
@@ -51,24 +57,26 @@ DateOnly nextworkingDay = calendar.GetNextWorkingDay(date);
 DateOnly adjustedWorkingDay = calendar.AdjustToWorkingDay(date);
 ```
 
-#### Contracts: ####
+#### Contracts:
 
 - `IHolidaysCalendar` - Describes a set of functions for working with holiday calendar.
 
 - `IHolidaysDataProvider` - Describes a holiday data provider.
 
-- `IFallbackDataProvider` - Describes a fallback holiday data provider.
+- `IFallbackHolidaysDataProvider` - Describes a fallback holiday data provider.
 
 - `IHolidaysData` - Describes a result of fetching data by data provider.
 
 
 
-#### Implementations: ####
+#### Classes:
 
 - `HolidaysCalendar` - `IHolidayCalendar` implementation.
 
-- `HolidaysDataFactory` - Used to create object that implements `IHolidaysData`.
+- `RussianHolidaysCalendar` - Russian holidays calendar.
 
-- `XmlCalendarDataProvider` - Russian holidays data provider.
+- `RussianHolidaysDataProvider` - Russian holidays data provider, used by `RussianHolidaysCalendar`.
 
-- `FallbackDataProvider` - Russian holidays fallback data provider.
+- `RussianHolidaysFallbackDataProvider` - Russian holidays fallback data provider, used by `RussianHolidaysCalendar`.
+
+- `HolidaysDataFactory` - Used to create object that implements `IHolidaysData`, useful when implementing `IHolidaysDataProvider` and `IFallbackDataProvider` contracts.
