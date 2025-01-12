@@ -55,6 +55,7 @@ Work with holidays calendar with ease.
         <PackageReleaseNotes>
             ChangeLog
             ---------
+            2.0.0-rc1 Update contracts.
             2.0.0-rc1 Update XML Doc comments.
             2.0.0-rc1 Add RussianHolidaysCalendar class.
             1.0.0 First release version.
