@@ -13,6 +13,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2E9A95AC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trustsoft.HolidaysCalendar.Tests", "..\tests\Trustsoft.HolidaysCalendar.Tests\Trustsoft.HolidaysCalendar.Tests.csproj", "{2437EDC1-0D86-4ECD-BBCE-F56113788139}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".meta", ".meta", "{502E1C16-1781-4BD1-8B1B-D2DF21FD1473}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{26E67E13-4DE8-4823-AE5E-559DD0BCAE8F}"
+	ProjectSection(SolutionItems) = preProject
+		..\Directory.build.props = ..\Directory.build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E94609B-D78A-4738-ADC2-7827F634273C}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.build.props = Directory.build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{62D60023-744F-48C0-A9B0-C4A8E69C504A}"
+	ProjectSection(SolutionItems) = preProject
+		..\tests\Directory.build.props = ..\tests\Directory.build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{190C09F7-3B52-4C8C-98AD-E7B5D3D51506}"
+	ProjectSection(SolutionItems) = preProject
+		..\samples\Directory.build.props = ..\samples\Directory.build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +60,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A07CA413-16E7-4631-BF38-34F0F1AA34C9} = {95400E31-26C0-4667-9B53-DB011BD70588}
 		{2437EDC1-0D86-4ECD-BBCE-F56113788139} = {2E9A95AC-F201-437F-B922-7644B9715CEE}
+		{26E67E13-4DE8-4823-AE5E-559DD0BCAE8F} = {502E1C16-1781-4BD1-8B1B-D2DF21FD1473}
+		{5E94609B-D78A-4738-ADC2-7827F634273C} = {502E1C16-1781-4BD1-8B1B-D2DF21FD1473}
+		{62D60023-744F-48C0-A9B0-C4A8E69C504A} = {502E1C16-1781-4BD1-8B1B-D2DF21FD1473}
+		{190C09F7-3B52-4C8C-98AD-E7B5D3D51506} = {502E1C16-1781-4BD1-8B1B-D2DF21FD1473}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E7EBD32-DAB0-49AE-98AE-F8516F64D450}
