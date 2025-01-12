@@ -9,7 +9,6 @@ namespace UsageSample.ConsoleApp;
 
 using Trustsoft.HolidaysCalendar;
 using Trustsoft.HolidaysCalendar.Contracts;
-using Trustsoft.HolidaysCalendar.DataProviders;
 
 internal static class Program
 {
@@ -18,16 +17,14 @@ internal static class Program
 
     static void Main()
     {
-        Console.WriteLine("//-------------------------------//");
-        Console.WriteLine("// HolidaysCalendar Sample Usage //");
-        Console.WriteLine("//-------------------------------//");
+        Console.WriteLine("//--------------------------------------//");
+        Console.WriteLine("// RussianHolidaysCalendar Sample Usage //");
+        Console.WriteLine("//--------------------------------------//");
 
-        var dataProvider = new XmlCalendarDataProvider();
-        var fallbackDataProvider = new FallbackDataProvider();
-        IHolidaysCalendar calendar = new HolidaysCalendar(dataProvider, fallbackDataProvider);
+        IHolidaysCalendar calendar = new RussianHolidaysCalendar();
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsHoliday(DateOnly date) usage");
+        Console.WriteLine("IsHoliday(DateOnly date) usage");
         Console.WriteLine();
         var number = 0;
 
@@ -40,7 +37,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsWeekend(DateOnly date) usage");
+        Console.WriteLine("IsWeekend(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -50,7 +47,17 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.IsWorkingWeekend(DateOnly date) usage");
+        Console.WriteLine("IsWorkingDay(DateOnly date) usage");
+        Console.WriteLine();
+        number = 0;
+        foreach (var date in dates)
+        {
+            var result = calendar.IsWorkingDay(date);
+            Console.WriteLine($"#{++number:00}: {date:dd.MM.yyyy} is working day = {result}");
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("IsWorkingWeekend(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -60,7 +67,7 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.GetNextWorkingDay(DateOnly date) usage");
+        Console.WriteLine("GetNextWorkingDay(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
@@ -70,12 +77,12 @@ internal static class Program
         }
 
         Console.WriteLine();
-        Console.WriteLine("HolidaysCalendar.AdjustForHolidaysAndWeekends(DateOnly date) usage");
+        Console.WriteLine("AdjustToWorkingDay(DateOnly date) usage");
         Console.WriteLine();
         number = 0;
         foreach (var date in dates)
         {
-            var result = calendar.AdjustForHolidaysAndWeekends(date);
+            var result = calendar.AdjustToWorkingDay(date);
             Console.WriteLine($"#{++number:00}: {date:dd.MM.yyyy} adjusted for holidays day is = {result}");
         }
 

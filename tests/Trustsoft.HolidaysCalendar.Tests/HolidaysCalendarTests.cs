@@ -40,6 +40,18 @@ public partial class HolidaysCalendarTests
 
     [TestMethod]
     [DynamicData(nameof(GetTestData), DynamicDataSourceType.Method)]
+    public void IsWorkingDayTest(TestDataItem dateItem)
+    {
+        var expected = dateItem.IsWorkingWeekend || !(dateItem.IsHoliday || dateItem.IsWeekend);
+        var actual = calendar.IsWorkingDay(dateItem.Day);
+
+        Debug.WriteLine($"IsWorkingDay test case for: {dateItem}");
+        Debug.WriteLine($"Result: expected: {expected} actual: {actual}");
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    [DynamicData(nameof(GetTestData), DynamicDataSourceType.Method)]
     public void IsWorkingWeekendTest(TestDataItem dateItem)
     {
         var expected = dateItem.IsWorkingWeekend;
@@ -68,7 +80,7 @@ public partial class HolidaysCalendarTests
         var date = DateOnly.ParseExact(dateOnlyString, "yyyy.MM.dd");
         var expected = DateOnly.ParseExact(expectedString, "yyyy.MM.dd");
 
-        var actual = calendar.AdjustForHolidaysAndWeekends(date);
+        var actual = calendar.AdjustToWorkingDay(date);
         Assert.AreEqual(actual, expected);
     }
 }

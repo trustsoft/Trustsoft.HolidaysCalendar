@@ -2,62 +2,7 @@
 
     <PropertyGroup>
         <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
-        <Title>Work with holidays calendar with ease.</Title>
         <Product>Trustsoft Holiday Calendar Class Library</Product>
-        <Authors>Trustsoft</Authors>
-        <Description>
-          Extensible holidays calendar for .NET 6.0-9.0.
-          Work with holidays calendar with ease.
-        </Description>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <BaseOutputPath>..\..\artifacts\</BaseOutputPath>
-        <SignAssembly>False</SignAssembly>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0.0</FileVersion>
-        <VersionPrefix>1.0.0</VersionPrefix>
-        <VersionSuffix></VersionSuffix>
-        <LangVersion>latest</LangVersion>
-        <NeutralLanguage>en-US</NeutralLanguage>
     </PropertyGroup>
-
-    <PropertyGroup Condition="$(Configuration)=='Release'">
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageOutputPath>..\..\packages\</PackageOutputPath>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>logo.png</PackageIcon>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/trustsoft/Trustsoft.HolidaysCalendar.git</RepositoryUrl>
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <PackageTags>calendar;holiday</PackageTags>
-        <PackageDescription>
-            <![CDATA[
-Extensible holidays calendar for .NET 6.0-9.0.
-Work with holidays calendar with ease.
-            ]]>
-        </PackageDescription>
-        <PackageReleaseNotes>
-          ChangeLog
-          ---------
-          1.0.0 First release version.
-          1.0.0-rc3 Code refactoring and cleanup.
-          1.0.0-rc3 Update project metadata.
-          1.0.0-rc3 Update XML Doc comments.
-          1.0.0-rc3 Fix codestyle.
-          1.0.0-rc2 Add more target frameworks support, .NET 6.0-9.0.
-          1.0.0-rc2 Fix working weekend reading in XmlCalendarDataProvider.
-          1.0.0-rc2 Improve unit tests.
-          1.0.0-rc1 First public Nuget package version.
-        </PackageReleaseNotes>
-    </PropertyGroup>
-    
-    <ItemGroup>
-        <None Include="..\..\logo.png" Pack="true" PackagePath="\" />
-        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
-    </ItemGroup>
 
 </Project>

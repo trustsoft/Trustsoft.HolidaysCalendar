@@ -29,8 +29,8 @@ public interface IHolidaysData
     IReadOnlyList<DateOnly> WorkingWeekends { get; }
 
     /// <summary>
-    ///   Gets a value indicating the validity of the contained data.
+    ///   Determines whether this instance contains valid data.
     /// </summary>
-    /// <value> <c> true </c> if contained data is valid; otherwise, <c> false </c>. </value>
+    /// <value> <see langword="true" /> if contained data is valid; otherwise, <see langword="false" />. </value>
     bool IsValid { get; }
 }

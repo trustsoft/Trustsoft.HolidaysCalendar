@@ -16,8 +16,20 @@ public interface IHolidaysCalendar
     ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
     /// </summary>
     /// <param name="date"> The date to adjust for. </param>
-    /// <returns> The date adjusted for holidays and weekends. </returns>
+    /// <returns>
+    ///   The specified <paramref name="date" /> if it`s a working day; otherwise, next working day.
+    /// </returns>
+    [Obsolete("AdjustForHolidaysAndWeekends is deprecated, please use AdjustToWorkingDay, with same signature, instead.")]
     DateOnly AdjustForHolidaysAndWeekends(DateOnly date);
+
+    /// <summary>
+    ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
+    /// </summary>
+    /// <param name="date"> The date to adjust for. </param>
+    /// <returns>
+    ///   The specified <paramref name="date" /> if it`s a working day; otherwise, next working day.
+    /// </returns>
+    DateOnly AdjustToWorkingDay(DateOnly date);
 
     /// <summary>
     ///   Gets the next working day after specified <paramref name="date" />.
@@ -30,21 +42,37 @@ public interface IHolidaysCalendar
     ///   Determines whether the specified <paramref name="date" /> is a holiday.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is holiday; otherwise, <c> false </c>. </returns>
+    /// <returns>
+    ///   <see langword="true" /> if the specified date is holiday; otherwise, <see langword="false" />.
+    /// </returns>
     bool IsHoliday(DateOnly date);
 
     /// <summary>
-    ///   Determines whether the specified <paramref name="date" /> is a weekend,
-    ///   taking into account working weekends.
+    ///   Determines whether the specified <paramref name="date" />
+    ///   is a weekend taking into account working weekends.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is a weekend; otherwise, <c> false </c>. </returns>
+    /// <returns>
+    ///   <see langword="true" /> if the specified date is a weekend; otherwise, <see langword="false" />.
+    /// </returns>
     bool IsWeekend(DateOnly date);
+
+    /// <summary>
+    ///   Determines whether the specified <paramref name="date" />
+    ///   is a working day taking into account working weekends and holidays.
+    /// </summary>
+    /// <param name="date"> The date to check for. </param>
+    /// <returns>
+    ///   <see langword="true" /> if the specified date is a working day; otherwise, <see langword="false" />.
+    /// </returns>
+    bool IsWorkingDay(DateOnly date);
 
     /// <summary>
     ///   Determines whether the specified <paramref name="date" /> is working weekend.
     /// </summary>
     /// <param name="date"> The date to check for. </param>
-    /// <returns> <c> true </c> if the specified date is working weekend; otherwise, <c> false </c>. </returns>
+    /// <returns>
+    ///   <see langword="true" /> if the specified date is working weekend; otherwise, <see langword="false" />.
+    /// </returns>
     bool IsWorkingWeekend(DateOnly date);
 }

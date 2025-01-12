@@ -1,0 +1,20 @@
+<!--
+// ========================================================================================================
+//  Description: Common MSBuild configuration for test projects ('tests' folder)
+//  Author: msukhanov (sukhanov.maxim@gmail.com)
+//  Links: 
+//    https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild
+//    https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-reserved-and-well-known-properties 
+// ========================================================================================================
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- Import parent Directory.build.props -->
+    <Import Project="../Directory.Build.props" />
+
+    <!-- Common test project properties -->
+    <PropertyGroup>
+        <BaseOutputPath>..\artifacts\</BaseOutputPath>
+    </PropertyGroup>
+
+</Project>

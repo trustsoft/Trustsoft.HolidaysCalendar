@@ -9,15 +9,15 @@ namespace Trustsoft.HolidaysCalendar.DataProviders;
 
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
 ///   Russian holidays fallback data provider for <see cref="IHolidaysCalendar" /> implementation.
-///   Implements the <see cref="IFallbackDataProvider" />.
 /// </summary>
-/// <remarks> Generated data contains dates for all major Russian holidays. </remarks>
-/// <seealso cref="IFallbackDataProvider" />
-public class FallbackDataProvider : IFallbackDataProvider
+/// <remarks> Generated data contains dates of all major Russian holidays. </remarks>
+/// <seealso cref="IFallbackHolidaysDataProvider" />
+public class RussianHolidaysFallbackDataProvider : IFallbackHolidaysDataProvider
 {
     private readonly IReadOnlyList<HolidayData> holidayDescriptions =
     [
@@ -41,26 +41,6 @@ public class FallbackDataProvider : IFallbackDataProvider
 
     private readonly Dictionary<int, List<DateOnly>> holidaysCache = [];
 
-    /// <summary>
-    ///   Gets the generated holidays data for specified year.
-    /// </summary>
-    /// <param name="year"> The year to get holidays data for. </param>
-    /// <remarks> Generated data contains all major Russian holidays. </remarks>
-    /// <returns>
-    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified year.
-    /// </returns>
-    public IHolidaysData GetHolidaysData(int year)
-    {
-        if (!this.holidaysCache.Keys.Contains(year))
-        {
-            Debug.WriteLine($"DATA CREATED FOR YEAR: {year}");
-            this.GenerateDataForYear(year);
-        }
-
-        var holidays = this.holidaysCache[year];
-        return HolidaysDataFactory.Valid(holidays);
-    }
-
     private void GenerateDataForYear(int year)
     {
         var list = from holiday in this.holidayDescriptions
@@ -76,6 +56,27 @@ public class FallbackDataProvider : IFallbackDataProvider
         }
 
         @default?.AddRange(list);
+    }
+
+    /// <summary>
+    ///   Gets the generated holidays data for specified year.
+    /// </summary>
+    /// <param name="year"> The year to get holidays data for. </param>
+    /// <remarks> Generated data contains all major Russian holidays. </remarks>
+    /// <returns>
+    ///   The <see cref="IHolidaysData" /> object that contains
+    ///   a result of fetching holidays data for specified year.
+    /// </returns>
+    public IHolidaysData GetHolidaysData(int year)
+    {
+        if (!this.holidaysCache.Keys.Contains(year))
+        {
+            Debug.WriteLine($"DATA CREATED FOR YEAR: {year}");
+            this.GenerateDataForYear(year);
+        }
+
+        var holidays = this.holidaysCache[year];
+        return HolidaysDataFactory.Valid(holidays);
     }
 
     private record HolidayData(int Month, List<int> Days)

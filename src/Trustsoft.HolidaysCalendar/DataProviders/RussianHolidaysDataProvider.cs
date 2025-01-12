@@ -7,45 +7,51 @@
 
 namespace Trustsoft.HolidaysCalendar.DataProviders;
 
-using System;
-using System.Net.Http;
 using System.Xml.Linq;
 
 using Trustsoft.HolidaysCalendar.Contracts;
 
 /// <summary>
-///   Russian holidays data provider for <see cref="IHolidaysCalendar" /> implementation.
-///   Implements the <see cref="IHolidaysDataProvider" />.
+///   Russian holidays data provider for <see cref="HolidaysCalendar" />.
 /// </summary>
 /// <remarks> This provider fetches data from 'http://xmlcalendar.ru'. </remarks>
 /// <seealso cref="IHolidaysDataProvider" />
-public class XmlCalendarDataProvider : IHolidaysDataProvider
+public class RussianHolidaysDataProvider : IHolidaysDataProvider
 {
     private const string BaseUrl = "http://xmlcalendar.ru/data/ru/{0}/calendar.xml";
+
+    private const string DayAttributeName = "d";
+
+    private const string DayXElementName = "day";
+
+    private const string TypeAttributeName = "t";
 
     /// <summary>
     ///   Gets the holidays data for specified year.
     /// </summary>
     /// <param name="year"> The year to get holidays data for. </param>
     /// <returns>
-    ///   The <see cref="IHolidaysData" /> object that contains a result of fetching holidays data for specified <paramref name="year"/>.
+    ///   The <see cref="IHolidaysData" /> object that contains
+    ///   holidays data for specified <paramref name="year" />.
     /// </returns>
     public IHolidaysData GetHolidaysData(int year)
     {
         string GetFirstAttributeValue(XElement element, string attributeName)
         {
-            return element.Attributes(attributeName).FirstOrDefault()?.Value ?? string.Empty;
+            return element.Attribute(attributeName)?.Value ?? string.Empty;
         }
 
         bool ParseDateAndType(XElement element, out DateOnly date, out int dayType)
         {
-            var day = GetFirstAttributeValue(element, "d");
-            var type = GetFirstAttributeValue(element, "t");
-            date = default;
-            dayType = default;
+            var day = GetFirstAttributeValue(element, DayAttributeName);
+            var type = GetFirstAttributeValue(element, TypeAttributeName);
 
-            if (string.IsNullOrEmpty(day) || string.IsNullOrEmpty(type) || !int.TryParse(type, out dayType))
+            if (string.IsNullOrEmpty(day) ||
+                string.IsNullOrEmpty(type) ||
+                !int.TryParse(type, out dayType))
             {
+                date = default;
+                dayType = 0;
                 return false;
             }
 
@@ -54,12 +60,12 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
 
         var requestUri = string.Format(BaseUrl, year);
 
-        if (!LoadDataFromUrl(requestUri, out XDocument? doc) || doc is null)
+        if (!requestUri.LoadDataFromUrl(out XDocument? doc) || doc is null)
         {
             return HolidaysDataFactory.Invalid();
         }
 
-        var days = doc.Descendants("day");
+        var days = doc.Descendants(DayXElementName);
 
         var holidays = new List<DateOnly>();
         var workingWeekends = new List<DateOnly>();
@@ -94,48 +100,11 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
 
         return HolidaysDataFactory.Valid(holidays, workingWeekends);
     }
+}
 
-    private static bool LoadDataFromUrl(string requestUri, out XDocument? doc)
-    {
-        doc = null;
-
-        if (!IsUrlExists(requestUri))
-        {
-            return false;
-        }
-
-        if (!GetStringFromUrl(requestUri, out string response))
-        {
-            return false;
-        }
-
-        using var reader = new StringReader(response);
-
-        doc = XDocument.Load(reader);
-
-        return true;
-    }
-
-    private static bool IsUrlExists(string url)
-    {
-        try
-        {
-            using var client = new HttpClient();
-
-            //Do only Head request to avoid download full content
-            var requestMessage = new HttpRequestMessage(HttpMethod.Head, url);
-            HttpResponseMessage response = client.SendAsync(requestMessage).Result;
-
-            // if we have a SuccessStatusCode so url exists and available 
-            return response.IsSuccessStatusCode;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    private static bool GetStringFromUrl(string requestUri, out string response)
+internal static class Extensions
+{
+    private static bool GetStringFromUrl(this string requestUri, out string response)
     {
         try
         {
@@ -151,5 +120,45 @@ public class XmlCalendarDataProvider : IHolidaysDataProvider
             response = string.Empty;
             return false;
         }
+    }
+
+    private static bool IsUrlExists(this string uri)
+    {
+        try
+        {
+            using var client = new HttpClient();
+
+            //Do only Head request to avoid download full content
+            var requestMessage = new HttpRequestMessage(HttpMethod.Head, uri);
+            HttpResponseMessage response = client.SendAsync(requestMessage).Result;
+
+            // if we have a SuccessStatusCode so url exists and available 
+            return response.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    internal static bool LoadDataFromUrl(this string requestUri, out XDocument? doc)
+    {
+        doc = null;
+
+        if (!requestUri.IsUrlExists())
+        {
+            return false;
+        }
+
+        if (!requestUri.GetStringFromUrl(out var response))
+        {
+            return false;
+        }
+
+        using var reader = new StringReader(response);
+
+        doc = XDocument.Load(reader);
+
+        return true;
     }
 }
