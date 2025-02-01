@@ -19,16 +19,6 @@ public interface IHolidaysCalendar
     /// <returns>
     ///   The specified <paramref name="date" /> if it`s a working day; otherwise, next working day.
     /// </returns>
-    [Obsolete("AdjustForHolidaysAndWeekends is deprecated, please use AdjustToWorkingDay, with same signature, instead.")]
-    DateOnly AdjustForHolidaysAndWeekends(DateOnly date);
-
-    /// <summary>
-    ///   Adjusts the specified <paramref name="date" /> to ensure it is not a holiday or a weekend.
-    /// </summary>
-    /// <param name="date"> The date to adjust for. </param>
-    /// <returns>
-    ///   The specified <paramref name="date" /> if it`s a working day; otherwise, next working day.
-    /// </returns>
     DateOnly AdjustToWorkingDay(DateOnly date);
 
     /// <summary>
