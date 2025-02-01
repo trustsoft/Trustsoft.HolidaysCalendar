@@ -5,4 +5,8 @@
         <Product>Trustsoft Holiday Calendar Class Library</Product>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Trustsoft.HolidaysCalendar.csproj.DotSettings" />
+    </ItemGroup>
+
 </Project>

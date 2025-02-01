@@ -17,7 +17,6 @@
         <AssemblyVersion>2.0.0</AssemblyVersion>
         <FileVersion>2.0.0.0</FileVersion>
         <VersionPrefix>2.0.0</VersionPrefix>
-        <VersionSuffix>rc1</VersionSuffix>
         <LangVersion>Latest</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -55,17 +54,19 @@ Work with holidays calendar with ease.
         <PackageReleaseNotes>
             ChangeLog
             ---------
-            2.0.0-rc1 Update contracts.
-            2.0.0-rc1 Update XML Doc comments.
-            2.0.0-rc1 Add RussianHolidaysCalendar class.
+            2.0.0 Added RussianHolidaysCalendar class.
+            2.0.0 Updated IHolidaysCalendar contract.
+            2.0.0-rc1 Updated contracts.
+            2.0.0-rc1 Updated XML Doc comments.
+            2.0.0-rc1 Added RussianHolidaysCalendar class.
             1.0.0 First release version.
             1.0.0-rc3 Code refactoring and cleanup.
-            1.0.0-rc3 Update project metadata.
-            1.0.0-rc3 Update XML Doc comments.
-            1.0.0-rc3 Fix codestyle.
-            1.0.0-rc2 Add more target frameworks support, .NET 6.0-9.0.
-            1.0.0-rc2 Fix working weekend reading in XmlCalendarDataProvider.
-            1.0.0-rc2 Improve unit tests.
+            1.0.0-rc3 Updated project metadata.
+            1.0.0-rc3 Updated XML Doc comments.
+            1.0.0-rc3 Fixed codestyle.
+            1.0.0-rc2 Added more target frameworks support, .NET 6.0-9.0.
+            1.0.0-rc2 Fixed working weekend reading in XmlCalendarDataProvider.
+            1.0.0-rc2 Improved unit tests.
             1.0.0-rc1 First public Nuget package version.
         </PackageReleaseNotes>
     </PropertyGroup>
